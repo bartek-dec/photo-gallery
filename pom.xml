@@ -53,7 +53,7 @@
                 <artifactId>service</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            
+
             <!-- Logback -->
             <dependency>
                 <groupId>ch.qos.logback</groupId>
