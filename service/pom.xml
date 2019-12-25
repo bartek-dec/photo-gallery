@@ -9,7 +9,16 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
+    <groupId>org.example.service</groupId>
     <artifactId>service</artifactId>
 
+    <dependencies>
+
+        <dependency>
+            <groupId>org.example.repository</groupId>
+            <artifactId>repository</artifactId>
+        </dependency>
+
+    </dependencies>
 
 </project>
