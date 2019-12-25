@@ -35,6 +35,25 @@
 
     <dependencyManagement>
         <dependencies>
+            <!-- Internal application modules -->
+            <dependency>
+                <groupId>org.example.domain</groupId>
+                <artifactId>domain</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.example.repository</groupId>
+                <artifactId>repository</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.example.service</groupId>
+                <artifactId>service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            
             <!-- Logback -->
             <dependency>
                 <groupId>ch.qos.logback</groupId>
