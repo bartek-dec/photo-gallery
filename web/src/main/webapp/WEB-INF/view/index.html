@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+	<meta charset="utf-8">
+	<title>Photo gallery</title>
+	
+	
+	<link rel="stylesheet" href="main.css">
+	<link rel="stylesheet" href="css/fontello.css">	
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext" rel="stylesheet">
+	
+</head>
+
+<body>
+	<div class="wrapper">
+
+			<div class="header">
+				<h1>My travels</h1>
+			</div>
+
+			<div class="flags">
+				<div class="flag_pl"><img src="png/flag_PL.png"></div>
+				<div class="flag_gb"><img src="png/flag_GB.png"></div>
+				<div style="clear: both;"></div>
+			</div>
+
+			<div class="nav">
+				
+				<ol>
+					<li><a href="index.html">Home page</a></li>
+					<li><a href="add_album.html">Add album</a></li>
+					<li><a href="remove_album.html">Remove album</a></li>
+					<li><a href="https://github.com/bartek-dec">About author</a></li>
+				</ol>
+			
+			</div>
+
+			<div class="container">
+			
+				<div class="postcard">
+				
+					<div class="photo"> 
+						<div class="overlayT">
+							<a href="#"><img class="img" src="img/01.jpg"></a>
+							<a class="link" href="show_album.html">
+								<span class="icon">
+									<i class="icon-search"></i>
+									<p>zobacz album</p>
+								</span>
+							</a>
+						</div>
+					</div>
+					<p>Mauzoleum Taj Mahal - Agra, Indie</p>
+					
+				</div>
+				
+				<div class="postcard">
+				
+					<div class="photo"> 
+						<div class="overlayT">
+							<a href="#"><img class="img" src="img/02.jpg"></a>
+							<a class="link" href="#">
+								<span class="icon">
+									<i class="icon-search"></i>
+									<p>zobacz album</p>
+								</span>
+							</a>
+						</div>
+					</div>
+					<p>Mauzoleum Taj Mahal - Agra, Indie</p>
+						
+				</div>
+				
+				<div class="postcard">
+				
+					<div class="photo"> 
+						<div class="overlayT">
+							<a href="#"><img class="img" src="img/03.jpg"></a>
+							<a class="link" href="#">
+								<span class="icon">
+									<i class="icon-search"></i>
+									<p>zobacz album</p>
+								</span>
+							</a>
+						</div>
+					</div>
+					<p>Mauzoleum Taj Mahal - Agra, Indie</p>
+						
+				</div>
+				
+				<div class="postcard">
+				
+					<div class="photo"> 
+						<div class="overlayT">
+							<a href="#"><img class="img" src="img/04.jpg"></a>
+							<a class="link" href="#">
+								<span class="icon">
+									<i class="icon-search"></i>
+									<p>zobacz album</p>
+								</span>
+							</a>
+						</div>
+					</div>
+					<p>Mauzoleum Taj Mahal - Agra, Indie</p>
+					
+				</div>				
+				
+
+				<div class="postcard">
+				
+					<div class="photo"> 
+						<div class="overlayT">
+							<a href="#"><img class="img" src="img/05.jpg"></a>
+							<a class="link" href="#">
+								<span class="icon">
+									<i class="icon-search"></i>
+									<p>zobacz album</p>
+								</span>
+							</a>
+						</div>
+					</div>
+					<p>Mauzoleum Taj Mahal - Agra, Indie</p>
+						
+				</div>
+
+				<div class="postcard">
+				
+					<div class="photo"> 
+						<div class="overlayT">
+							<a href="#"><img class="img" src="img/06.jpg"></a>
+							<a class="link" href="#">
+								<span class="icon">
+									<i class="icon-search"></i>
+									<p>zobacz album</p>
+								</span>
+							</a>
+						</div>
+					</div>
+					<p>Mauzoleum Taj Mahal - Agra, Indie</p>
+						
+				</div>
+				
+			</div>
+					
+	</div>
+
+	<div class="footer">2019 &copy; Bartek Dec. <i class="icon-mail-alt"></i>decbartek@gmail.com</div>
+
+
+	<script src="jquery-3.1.1.min.js"></script>
+	
+	<script>
+
+	$(document).ready(function() {
+	var NavY = $('.nav').offset().top;
+	 
+	var stickyNav = function(){
+	var ScrollY = $(window).scrollTop();
+		  
+	if (ScrollY > NavY) { 
+		$('.nav').addClass('sticky');
+	} else {
+		$('.nav').removeClass('sticky'); 
+	}
+	};
+	 
+	stickyNav();
+	 
+	$(window).scroll(function() {
+		stickyNav();
+	});
+	});
+	
+	</script>
+		
+</body>
+</html>
