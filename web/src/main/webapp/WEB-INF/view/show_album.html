@@ -1,129 +1,103 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/head :: headFragment}">
-	
+
 </head>
 
 <body>
-	<div class="wrapper">
+<div class="wrapper">
 
-			<div class="header">
-				<h1>My travels</h1>
-			</div>
+    <div class="header">
+        <h1>My travels</h1>
+    </div>
 
-			<div class="flags">
-				<div class="flag_pl"><img src="png/flag_PL.png"></div>
-				<div class="flag_gb"><img src="png/flag_GB.png"></div>
-				<div style="clear: both;"></div>
-			</div>
+    <div class="flags">
+        <div class="flag_pl"><img src="png/flag_PL.png"></div>
+        <div class="flag_gb"><img src="png/flag_GB.png"></div>
+        <div style="clear: both;"></div>
+    </div>
 
-			<div class="nav">
-				
-				<ol>
-					<li><a href="index.html">Home page</a></li>
-					<li><a href="add_album.html">Add album</a></li>
-					<li><a href="edit_album.html">Edit album</a></li>
-					<li><a href="remove_album.html">Remove album</a></li>
-					<li><a href="https://github.com/bartek-dec">About author</a></li>
-				</ol>
-			
-			</div>
+    <div class="nav">
 
-			
+        <ol>
+            <li><a href="index.html">Home page</a></li>
+            <li><a href="add_album.html">Add album</a></li>
+            <li><a href="edit_album.html">Edit album</a></li>
+            <li><a href="remove_album.html">Remove album</a></li>
+            <li><a href="https://github.com/bartek-dec">About author</a></li>
+        </ol>
 
-			<div class="container">
-
-				<div class="title">
-					<h2>Mauzoleum Taj Mahal - Agra, Indie</h2>
-				</div>
-			
-				<div class="postcard">
-					<div class="photo"> 
-						<div>
-							<a href="show_img.html" target="_blank"><img class="img" src="img/12.jpg"></a>
-						</div>
-					</div>
-					<p></p>
-				</div>
-				
-				<div class="postcard">
-					<div class="photo"> 
-						<div>
-							<a href="#"><img class="img" src="img/07.jpg"></a>
-						</div>
-					</div>
-					<p></p>
-				</div>
-				
-				<div class="postcard">
-					<div class="photo"> 
-						<div>
-							<a href="#"><img class="img" src="img/08.jpg"></a>
-						</div>
-					</div>
-					<p></p>	
-				</div>
-				
-				<div class="postcard">
-					<div class="photo"> 
-						<div>
-							<a href="#"><img class="img" src="img/12.jpg"></a>
-						</div>
-					</div>
-					<p></p>	
-				</div>				
-				
-
-				<div class="postcard">
-					<div class="photo"> 
-						<div>
-							<a href="#"><img class="img" src="img/10.jpg"></a>
-						</div>
-					</div>
-					<p></p>		
-				</div>
-
-				<div class="postcard">
-					<div class="photo"> 
-						<div>
-							<a href="#"><img class="img" src="img/11.jpg"></a>
-						</div>
-					</div>
-					<p></p>	
-				</div>
-				
-			</div>
-					
-	</div>
-
-	<div th:replace="~{fragments/footer :: footerFragment}"></div>
+    </div>
 
 
-	<script src="jquery-3.1.1.min.js"></script>
-	
-	<script>
+    <div class="container">
 
-	$(document).ready(function() {
-	var NavY = $('.nav').offset().top;
-	 
-	var stickyNav = function(){
-	var ScrollY = $(window).scrollTop();
-		  
-	if (ScrollY > NavY) { 
-		$('.nav').addClass('sticky');
-	} else {
-		$('.nav').removeClass('sticky'); 
-	}
-	};
-	 
-	stickyNav();
-	 
-	$(window).scroll(function() {
-		stickyNav();
-	});
-	});
-	
-	</script>
-		
+        <div class="title">
+            <h2>Mauzoleum Taj Mahal - Agra, Indie</h2>
+        </div>
+
+        <div class="postcard">
+            <div class="photo">
+                <div>
+                    <a href="show_img.html" target="_blank"><img class="img" src="img/12.jpg"></a>
+                </div>
+            </div>
+            <p></p>
+        </div>
+
+        <div class="postcard">
+            <div class="photo">
+                <div>
+                    <a href="#"><img class="img" src="img/07.jpg"></a>
+                </div>
+            </div>
+            <p></p>
+        </div>
+
+        <div class="postcard">
+            <div class="photo">
+                <div>
+                    <a href="#"><img class="img" src="img/08.jpg"></a>
+                </div>
+            </div>
+            <p></p>
+        </div>
+
+        <div class="postcard">
+            <div class="photo">
+                <div>
+                    <a href="#"><img class="img" src="img/12.jpg"></a>
+                </div>
+            </div>
+            <p></p>
+        </div>
+
+
+        <div class="postcard">
+            <div class="photo">
+                <div>
+                    <a href="#"><img class="img" src="img/10.jpg"></a>
+                </div>
+            </div>
+            <p></p>
+        </div>
+
+        <div class="postcard">
+            <div class="photo">
+                <div>
+                    <a href="#"><img class="img" src="img/11.jpg"></a>
+                </div>
+            </div>
+            <p></p>
+        </div>
+
+    </div>
+
+</div>
+
+<div th:replace="~{fragments/footer :: footerFragment}"></div>
+
+<div th:replace="~{fragments/script :: scriptFragment}"></div>
+
 </body>
 </html>

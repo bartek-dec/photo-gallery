@@ -1,52 +1,52 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/head :: headFragment}">
-	
+
 </head>
 
 <body>
-	<div class="wrapper">
+<div class="wrapper">
 
-			<div class="header">
-				<h1>My travels</h1>
-			</div>
+    <div class="header">
+        <h1>My travels</h1>
+    </div>
 
-			<div class="flags">
-				<div class="flag_pl"><img src="png/flag_PL.png"></div>
-				<div class="flag_gb"><img src="png/flag_GB.png"></div>
-				<div style="clear: both;"></div>
-			</div>
+    <div class="flags">
+        <div class="flag_pl"><img src="png/flag_PL.png"></div>
+        <div class="flag_gb"><img src="png/flag_GB.png"></div>
+        <div style="clear: both;"></div>
+    </div>
 
-			<div class="nav">
-				
-				<ol>
-					<li><a href="index.html">Home page</a></li>
-					<li><a href="add_album.html">Add album</a></li>
-					<li><a href="remove_album.html">Remove album</a></li>
-					<li><a href="https://github.com/bartek-dec">About author</a></li>
-				</ol>
-			
-			</div>
+    <div class="nav">
 
-			<div class="container_form">
+        <ol>
+            <li><a href="index.html">Home page</a></li>
+            <li><a href="add_album.html">Add album</a></li>
+            <li><a href="remove_album.html">Remove album</a></li>
+            <li><a href="https://github.com/bartek-dec">About author</a></li>
+        </ol>
 
-				<p>Create new album</p>
+    </div>
 
-				<form method="POST">
-					<label>Album's name:</label>
-					<input type="text">
+    <div class="container_form">
 
-					<label>Date:</label>
-					<input type="date">
+        <p>Create new album</p>
 
-					<input type="submit" value="Submit">
-				</form>
-				
-			</div>
-					
-	</div>
+        <form method="POST">
+            <label>Album's name:</label>
+            <input type="text">
 
-	<div th:replace="~{fragments/footer :: footerFragment}"></div>
-		
+            <label>Date:</label>
+            <input type="date">
+
+            <input type="submit" value="Submit">
+        </form>
+
+    </div>
+
+</div>
+
+<div th:replace="~{fragments/footer :: footerFragment}"></div>
+
 </body>
 </html>
