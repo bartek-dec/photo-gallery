@@ -5,6 +5,7 @@ import org.example.service.AlbumService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 @Slf4j
@@ -29,6 +30,13 @@ public class AlbumController {
         log.debug("I am in the AlbumController addAlbum()");
 
         return "add_album";
+    }
+
+    @PostMapping("add_photo")
+    public String createAlbum() {
+        log.debug("I am in the AlbumController createAlbum()");
+
+        return "add_photo";
     }
 
     @GetMapping("remove_album")
