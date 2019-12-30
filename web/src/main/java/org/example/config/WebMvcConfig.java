@@ -57,6 +57,17 @@ public class WebMvcConfig implements WebMvcConfigurer {
     }
 
     @Bean
+    public SpringResourceTemplateResolver jsResolver() {
+        SpringResourceTemplateResolver jsResolver = new SpringResourceTemplateResolver();
+
+        jsResolver.setApplicationContext(applicationContext);
+        jsResolver.setPrefix("/staticResources/jquery/");
+        jsResolver.setSuffix(".js");
+
+        return jsResolver;
+    }
+
+    @Bean
     public SpringTemplateEngine templateEngine() {
         SpringTemplateEngine engine = new SpringTemplateEngine();
 
