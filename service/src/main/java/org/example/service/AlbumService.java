@@ -12,7 +12,7 @@ public interface AlbumService {
 
     void saveAlbum(Album album);
 
-    Album findAlbumById(Long albumId) throws NotFoundException;
+    Album findAlbumById(Long albumId);
 
     void deleteAlbumById(Long albumId);
 

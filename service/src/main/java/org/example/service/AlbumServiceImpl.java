@@ -43,13 +43,13 @@ public class AlbumServiceImpl implements AlbumService {
     }
 
     @Override
-    public Album findAlbumById(Long albumId) throws NotFoundException {
+    public Album findAlbumById(Long albumId) {
         log.debug("I am in the AlbumServiceImpl findAlbumById()");
 
         Optional<Album> albumOptional = albumRepository.findById(albumId);
 
         if (!albumOptional.isPresent()) {
-            throw new NotFoundException("Album not found for ID value " + albumId);
+            return null;
         }
 
         return albumOptional.get();
@@ -68,10 +68,10 @@ public class AlbumServiceImpl implements AlbumService {
 
         List<Photo> photos = new ArrayList<>();
 
-        try {
+        if (findAlbumById(albumId).equals(null)) {
+            return null;
+        } else {
             photos.addAll(findAlbumById(albumId).getPhotos());
-        } catch (NotFoundException e) {
-            e.printStackTrace();
         }
 
         return photos;
