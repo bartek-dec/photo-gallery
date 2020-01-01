@@ -1,6 +1,5 @@
 package org.example.service;
 
-import javassist.NotFoundException;
 import org.example.domain.Album;
 import org.example.domain.Photo;
 
@@ -10,7 +9,7 @@ public interface AlbumService {
 
     List<Album> findAllAlbums();
 
-    void saveAlbum(Album album);
+    Album saveAlbum(Album album);
 
     Album findAlbumById(Long albumId);
 

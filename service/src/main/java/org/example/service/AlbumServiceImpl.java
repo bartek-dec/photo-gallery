@@ -1,6 +1,5 @@
 package org.example.service;
 
-import javassist.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.example.domain.Album;
 import org.example.domain.Photo;
@@ -36,10 +35,12 @@ public class AlbumServiceImpl implements AlbumService {
     }
 
     @Override
-    public void saveAlbum(Album album) {
+    public Album saveAlbum(Album album) {
         log.debug("I am in the AlbumServiceImpl saveAlbum()");
 
-        albumRepository.save(album);
+        Album savedAlbum = albumRepository.save(album);
+
+        return savedAlbum;
     }
 
     @Override
