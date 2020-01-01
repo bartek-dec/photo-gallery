@@ -17,12 +17,12 @@
 
         <p>Create new album</p>
 
-        <form method="POST" th:action="add_photo">
+        <form action="#" th:action="@{add_album}"  th:object="${album}" method="POST" >
             <label>Album's name:</label>
-            <input type="text">
+            <input type="text" th:field="*{name}"/>
 
             <label>Date:</label>
-            <input type="date">
+            <input type="date" th:field="*{tripDate}"/>
 
             <input type="submit" value="Submit">
         </form>
