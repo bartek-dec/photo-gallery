@@ -15,106 +15,28 @@
 
     <div class="container">
 
-        <div class="postcard">
-
-            <div class="photo">
-                <div class="overlayT">
-                    <a href="#"><img class="img" src="img/01.jpg"></a>
-                    <a class="link" href="show_album.html">
-								<span class="icon">
-									<i class="icon-search"></i>
-									<p>zobacz album</p>
-								</span>
-                    </a>
-                </div>
-            </div>
-            <p>Mauzoleum Taj Mahal - Agra, Indie</p>
-
+        <div th:if="${albums.isEmpty()}">
+            <h2>There are no albums to show</h2>
         </div>
 
-        <div class="postcard">
+        <div th:unless="${albums.isEmpty()}">
 
-            <div class="photo">
-                <div class="overlayT">
-                    <a href="#"><img class="img" src="img/02.jpg"></a>
-                    <a class="link" href="#">
+            <div class="postcard" th:each="album : ${albums}">
+
+                <div class="photo">
+                    <div class="overlayT">
+                        <a href="#"><img class="img" src="img/01.jpg" th:src="${album.getPhotos().get(0)}"></a>
+                        <a class="link" href="#" th:href="@{show_album + '/' +${album.id}}">
 								<span class="icon">
 									<i class="icon-search"></i>
-									<p>zobacz album</p>
+									<p>See album</p>
 								</span>
-                    </a>
+                        </a>
+                    </div>
                 </div>
+                <p th:text="${album.name}"></p>
+
             </div>
-            <p>Mauzoleum Taj Mahal - Agra, Indie</p>
-
-        </div>
-
-        <div class="postcard">
-
-            <div class="photo">
-                <div class="overlayT">
-                    <a href="#"><img class="img" src="img/03.jpg"></a>
-                    <a class="link" href="#">
-								<span class="icon">
-									<i class="icon-search"></i>
-									<p>zobacz album</p>
-								</span>
-                    </a>
-                </div>
-            </div>
-            <p>Mauzoleum Taj Mahal - Agra, Indie</p>
-
-        </div>
-
-        <div class="postcard">
-
-            <div class="photo">
-                <div class="overlayT">
-                    <a href="#"><img class="img" src="img/04.jpg"></a>
-                    <a class="link" href="#">
-								<span class="icon">
-									<i class="icon-search"></i>
-									<p>zobacz album</p>
-								</span>
-                    </a>
-                </div>
-            </div>
-            <p>Mauzoleum Taj Mahal - Agra, Indie</p>
-
-        </div>
-
-
-        <div class="postcard">
-
-            <div class="photo">
-                <div class="overlayT">
-                    <a href="#"><img class="img" src="img/05.jpg"></a>
-                    <a class="link" href="#">
-								<span class="icon">
-									<i class="icon-search"></i>
-									<p>zobacz album</p>
-								</span>
-                    </a>
-                </div>
-            </div>
-            <p>Mauzoleum Taj Mahal - Agra, Indie</p>
-
-        </div>
-
-        <div class="postcard">
-
-            <div class="photo">
-                <div class="overlayT">
-                    <a href="#"><img class="img" src="img/06.jpg"></a>
-                    <a class="link" href="#">
-								<span class="icon">
-									<i class="icon-search"></i>
-									<p>zobacz album</p>
-								</span>
-                    </a>
-                </div>
-            </div>
-            <p>Mauzoleum Taj Mahal - Agra, Indie</p>
 
         </div>
 
