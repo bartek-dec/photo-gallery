@@ -17,8 +17,8 @@
 
         <p>Add photo</p>
 
-        <form method="POST" th:action="add_photo">
-            <input type="file" name="add photo">
+        <form method="POST" th:action="@{'/add_photo/' + ${id}}" enctype="multipart/form-data" >
+            <input type="file" name="image">
             <input type="submit" value="Submit">
         </form>
 
@@ -26,15 +26,22 @@
 
     <div class="container">
 
-        <div class="postcard_small">
-            <div class="photo_small">
-                <div>
-                    <img class="img_small" src="img/12.jpg">
-                </div>
-            </div>
-            <p><a class="link" href="#">Delete</a></p>
+        <div th:if="${photos.isEmpty()}">
+            <h2>Album is empty</h2>
         </div>
 
+        <div th:unless="${photos.isEmpty()}">
+
+            <div class="postcard_small" th:each="image : ${photos}">
+                <div class="photo_small">
+                    <div>
+                        <img class="img_small" src="img/12.jpg" th:src="image">
+                    </div>
+                </div>
+                <p><a class="link" href="#">Delete</a></p>
+            </div>
+
+        </div>
 
 
     </div>
