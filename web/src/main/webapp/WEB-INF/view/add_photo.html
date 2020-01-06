@@ -38,7 +38,8 @@
                         <img class="img_small" th:src="@{'/add_photo/' + ${id} + '/show/' + ${photo.id} + '/show'}">
                     </div>
                 </div>
-                <p><a class="link" href="#">Delete</a></p>
+                <p><a class="link" href="#" th:href="@{'/add_photo/' + ${id} + '/show/' + ${photo.id} + '/delete'}">Delete</a>
+                </p>
             </div>
 
         </div>

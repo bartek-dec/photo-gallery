@@ -26,7 +26,7 @@ public class PhotoController {
     public PhotoController(PhotoService photoService) {
         this.photoService = photoService;
     }
-    
+
     @GetMapping("add_photo/{albumId}/show/{photoId}/show")
     public void displayPhotos(@PathVariable("photoId") Long photoId,
                               HttpServletResponse response) throws IOException {
@@ -71,6 +71,15 @@ public class PhotoController {
         Photo savedPhoto = photoService.savePhoto(id, file);
 
         return "redirect:/add_photo/" + id + "/show/" + savedPhoto.getId();
+    }
+
+    @GetMapping("add_photo/{albumId}/show/{photoId}/delete")
+    public String deletePhoto(@PathVariable("albumId") Long albumId, @PathVariable("photoId") Long photoId) {
+        log.debug("I am in the PhotoController deletePhoto()");
+
+        photoService.deletePhotoById(photoId);
+
+        return "redirect:/add_photo/" + albumId;
     }
 
 }
