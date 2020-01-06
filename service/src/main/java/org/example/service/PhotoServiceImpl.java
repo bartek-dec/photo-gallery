@@ -1,8 +1,9 @@
 package org.example.service;
 
-import javassist.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
+import org.example.domain.Album;
 import org.example.domain.Photo;
+import org.example.repository.AlbumRepository;
 import org.example.repository.PhotoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,51 +21,65 @@ import java.util.Optional;
 public class PhotoServiceImpl implements PhotoService {
 
     private final PhotoRepository photoRepository;
+    private final AlbumRepository albumRepository;
 
     @Autowired
-    public PhotoServiceImpl(PhotoRepository photoRepository) {
+    public PhotoServiceImpl(PhotoRepository photoRepository, AlbumRepository albumRepository) {
         this.photoRepository = photoRepository;
+        this.albumRepository = albumRepository;
     }
 
     @Override
-    public List<Photo> findAllPhotos() {
+    public List<Photo> findAllPhotos(Long albumId) {
         log.debug("I am in the PhotoServiceImpl findAllPhotos()");
 
-        List<Photo> photos = new ArrayList<>();
-        photoRepository.findAll().iterator().forEachRemaining(photos::add);
+        Optional<Album> albumOptional = albumRepository.findById(albumId);
 
-        return photos;
+        if (!albumOptional.isPresent()) {
+            return null;
+        }
+
+        return new ArrayList<>(albumOptional.get().getPhotos());
     }
 
     @Override
-    public void savePhoto(Photo photo, MultipartFile file) {
+    public Photo savePhoto(Long albumId, MultipartFile file) {
         log.debug("I am in the PhotoServiceImpl savePhoto()");
 
-        try {
-            Byte[] byteObjects = new Byte[file.getBytes().length];
+        Optional<Album> albumOptional = albumRepository.findById(albumId);
 
-            int i = 0;
-
-            for (byte b : file.getBytes()) {
-                byteObjects[i++] = b;
-            }
-
-            photo.setImage(byteObjects);
-            photoRepository.save(photo);
-        } catch (IOException e) {
-            log.debug("Error occurred " + e);
-            e.printStackTrace();
+        if (!albumOptional.isPresent()) {
+            log.debug("Album with ID = " + albumId + " has not been found");
         }
+
+        Album album = albumOptional.get();
+        Photo photo = new Photo();
+
+        if (!file.isEmpty()) {
+            try {
+                photo.setImage(file.getBytes());
+                photo.setAlbum(album);
+                album.getPhotos().add(photo);
+
+                return photoRepository.save(photo);
+            } catch (IOException e) {
+                log.debug("Error occurred " + e);
+                e.printStackTrace();
+            }
+        } else {
+            log.debug("Failed to upload file");
+        }
+        return null;
     }
 
     @Override
-    public Photo findPhotoById(Long photoId) throws NotFoundException {
+    public Photo findPhotoById(Long photoId) {
         log.debug("I am in the PhotoServiceImpl findPhotoById()");
 
         Optional<Photo> photoOptional = photoRepository.findById(photoId);
 
         if (!photoOptional.isPresent()) {
-            throw new NotFoundException("Photo not found for ID value " + photoId);
+            return null;
         }
         return photoOptional.get();
     }
