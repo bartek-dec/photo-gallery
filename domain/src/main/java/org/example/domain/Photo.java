@@ -18,7 +18,7 @@ public class Photo implements Serializable {
     private Long id;
 
     @Lob
-    private Byte[] image;
+    private byte[] image;
 
     @ManyToOne
     @JoinColumn(name = "album_id")
