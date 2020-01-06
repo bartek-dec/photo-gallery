@@ -26,8 +26,7 @@ public class PhotoController {
     public PhotoController(PhotoService photoService) {
         this.photoService = photoService;
     }
-
-
+    
     @GetMapping("add_photo/{albumId}/show/{photoId}/show")
     public void displayPhotos(@PathVariable("photoId") Long photoId,
                               HttpServletResponse response) throws IOException {
@@ -40,33 +39,29 @@ public class PhotoController {
         IOUtils.copy(inputStream, response.getOutputStream());
     }
 
-
     @GetMapping("add_photo/{albumId}")
-    public String displayFreshForm(@PathVariable("albumId") Long albumId, Model model) {
-        log.debug("I am in the PhotoController displayFreshForm()");
+    public String displayForm(@PathVariable("albumId") Long albumId, Model model) {
+        log.debug("I am in the PhotoController displayForm()");
 
-        List<Photo> photos = photoService.findAllPhotos(albumId);
-
-        log.debug("Albums size is " + photos.size());
-
-        model.addAttribute("id", albumId);
-        model.addAttribute("photos", photos);
+        fillInModel(albumId, model);
 
         return "add_photo";
     }
 
     @GetMapping("add_photo/{albumId}/show/{photoId}")
-    public String displayForm(@PathVariable("albumId") Long albumId, Model model) {
-        log.debug("I am in the PhotoController displayForm()");
+    public String reloadForm(@PathVariable("albumId") Long albumId, Model model) {
+        log.debug("I am in the PhotoController reloadForm()");
 
+        fillInModel(albumId, model);
+
+        return "add_photo";
+    }
+
+    private void fillInModel(@PathVariable("albumId") Long albumId, Model model) {
         List<Photo> photos = photoService.findAllPhotos(albumId);
-
-        log.debug("Albums size is " + photos.size());
 
         model.addAttribute("id", albumId);
         model.addAttribute("photos", photos);
-
-        return "add_photo";
     }
 
     @PostMapping("add_photo/{id}")
