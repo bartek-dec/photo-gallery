@@ -25,7 +25,7 @@
 
                 <div class="photo">
                     <div class="overlayT">
-                        <a href="#"><img class="img" src="img/01.jpg" th:src="${album.getPhotos().get(0)}"></a>
+                        <a href="#"><img class="img" src="img/01.jpg" th:src="@{'/show/' + ${album.id}}"></a>
                         <a class="link" href="#" th:href="@{'/show_album/' + ${album.id}}">
 								<span class="icon">
 									<i class="icon-search"></i>
