@@ -32,7 +32,7 @@ public class PhotoController {
                               HttpServletResponse response) throws IOException {
         log.debug("I am in the PhotoController displayPhotos()");
 
-        Photo photo = photoService.findPhotoById(Long.valueOf(photoId));
+        Photo photo = photoService.findPhotoById(photoId);
 
         response.setContentType("image/jpeg");
         InputStream inputStream = new ByteArrayInputStream(photo.getImage());
