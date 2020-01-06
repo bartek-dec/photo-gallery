@@ -27,8 +27,6 @@ public class AlbumController {
 
         model.addAttribute("albums", albumService.findAllAlbums());
 
-        log.debug("I am in the AlbumController home() after getting data from service");
-
         return "index";
     }
 
@@ -45,9 +43,9 @@ public class AlbumController {
     public String createAlbum(Album album) {
         log.debug("I am in the AlbumController createAlbum()");
 
-        albumService.saveAlbum(album);
+        Album savedAlbum = albumService.saveAlbum(album);
 
-        return "redirect:/add_photo";
+        return "redirect:/add_photo/" + savedAlbum.getId();
     }
 
     @GetMapping("remove_album")
