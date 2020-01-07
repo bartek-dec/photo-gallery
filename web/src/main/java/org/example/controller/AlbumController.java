@@ -17,7 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
 
 @Controller
 @Slf4j
@@ -42,10 +41,10 @@ public class AlbumController {
     }
 
     @GetMapping("/show/{albumId}")
-    public void reloadAlbums(@PathVariable("albumId") Long albumId, HttpServletResponse response) throws IOException {
-        log.debug("I am in the AlbumController reloadAlbums()");
+    public void showAlbums(@PathVariable("albumId") Long albumId, HttpServletResponse response) throws IOException {
+        log.debug("I am in the AlbumController showAlbums()");
 
-        Photo photo = albumService.findAlbumById(albumId).getPhotos().get(0);
+        Photo photo = photoService.findAllPhotos(albumId).get(0);
         response.setContentType("image/jpeg");
         InputStream inputStream = new ByteArrayInputStream(photo.getImage());
         IOUtils.copy(inputStream, response.getOutputStream());
@@ -83,12 +82,23 @@ public class AlbumController {
         return "edit_album";
     }
 
-    @GetMapping("show_album/{id}")
-    public String showAlbum(@PathVariable Long id, Model model) {
+    @GetMapping("show_album/{albumId}")
+    public String showAlbum(@PathVariable Long albumId, Model model) {
         log.debug("I am in the AlbumController showAlbum()");
 
-        model.addAttribute("photos", albumService.findAlbumById(id));
+        model.addAttribute("photos", photoService.findAllPhotos(albumId));
+        model.addAttribute("album", albumService.findAlbumById(albumId));
 
         return "show_album";
+    }
+
+    @GetMapping("show_album/{albumId}/{photoId}/display")
+    public void displayAlbum(@PathVariable Long photoId, HttpServletResponse response) throws IOException {
+        log.debug("I am in the AlbumController diaplayAlbum()");
+
+        Photo photo = photoService.findPhotoById(photoId);
+        response.setContentType("image/jpeg");
+        InputStream inputStream = new ByteArrayInputStream(photo.getImage());
+        IOUtils.copy(inputStream, response.getOutputStream());
     }
 }
