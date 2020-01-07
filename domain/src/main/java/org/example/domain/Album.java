@@ -28,7 +28,7 @@ public class Album implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate tripDate;
 
-    @OneToMany(mappedBy = "album", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "album", cascade = CascadeType.ALL)
     private List<Photo> photos = new ArrayList<>();
 
     public Album() {
