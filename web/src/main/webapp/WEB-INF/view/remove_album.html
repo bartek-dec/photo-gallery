@@ -15,58 +15,19 @@
 
     <div class="container">
 
-        <div class="postcard">
-
-            <div class="photo">
-                <img class="img" src="img/01.jpg">
-            </div>
-            <p><a href="#">Delete - Mauzoleum Taj Mahal - Agra, Indie</a></p>
-
+        <div th:if="${albums.isEmpty()}">
+            <h2>There are no albums to delete</h2>
         </div>
 
-        <div class="postcard">
+        <div class="postcard" th:each="album : ${albums}">
 
             <div class="photo">
-                <img class="img" src="img/02.jpg">
+                <img class="img" src="img/01.jpg" th:src="@{'/show/' + ${album.id}}">
             </div>
-            <p><a href="#">Delete - Mauzoleum Taj Mahal - Agra, Indie</a></p>
-
-        </div>
-
-        <div class="postcard">
-
-            <div class="photo">
-                <img class="img" src="img/03.jpg">
-            </div>
-            <p><a href="#">Delete - Mauzoleum Taj Mahal - Agra, Indie</a></p>
-
-        </div>
-
-        <div class="postcard">
-
-            <div class="photo">
-                <img class="img" src="img/04.jpg">
-            </div>
-            <p><a href="#">Delete - Mauzoleum Taj Mahal - Agra, Indie</a></p>
-
-        </div>
-
-
-        <div class="postcard">
-
-            <div class="photo">
-                <img class="img" src="img/05.jpg">
-            </div>
-            <p><a href="#">Delete - Mauzoleum Taj Mahal - Agra, Indie</a></p>
-
-        </div>
-
-        <div class="postcard">
-
-            <div class="photo">
-                <img class="img" src="img/06.jpg">
-            </div>
-            <p><a href="#">Delete - Mauzoleum Taj Mahal - Agra, Indie</a></p>
+            <p>
+                <a href="#" th:text="'Delete ' + ${album.getName() + ' album'}"
+                   th:href="@{'/remove_album/' + ${album.getId()} + '/delete'}"></a>
+            </p>
 
         </div>
 

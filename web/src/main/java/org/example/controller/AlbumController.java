@@ -69,10 +69,21 @@ public class AlbumController {
     }
 
     @GetMapping("remove_album")
-    public String removeAlbum() {
-        log.debug("I am in the AlbumController removeAlbum() ");
+    public String displayExistingAlbums(Model model) {
+        log.debug("I am in the AlbumController displayExistingAlbums() ");
+
+        model.addAttribute("albums", albumService.findAllAlbums());
 
         return "remove_album";
+    }
+
+    @GetMapping("remove_album/{albumId}/delete")
+    public String removeAlbum(@PathVariable Long albumId) {
+        log.debug("I am in the AlbumController removeAlbum()");
+
+        albumService.deleteAlbumById(albumId);
+
+        return "redirect:/remove_album";
     }
 
     @GetMapping("edit_album")
