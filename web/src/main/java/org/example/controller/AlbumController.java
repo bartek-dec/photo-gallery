@@ -30,8 +30,6 @@ public class AlbumController {
         this.photoService = photoService;
     }
 
-    //repair form used to update images in update form functionality
-    //reformat code (get rid of doubled code)
     @GetMapping("/")
     public String home(Model model) {
         log.debug("I am in the AlbumController home()");
@@ -42,10 +40,22 @@ public class AlbumController {
     }
 
     @GetMapping("/show/{albumId}")
-    public void showAlbums(@PathVariable("albumId") Long albumId, HttpServletResponse response) throws IOException {
-        log.debug("I am in the AlbumController showAlbums()");
+    public void showFirstPhoto(@PathVariable("albumId") Long albumId, HttpServletResponse response) throws IOException {
+        log.debug("I am in the AlbumController showFirstPhoto()");
 
         Photo photo = photoService.findAllPhotos(albumId).get(0);
+        renderPhoto(response, photo);
+    }
+
+    @GetMapping("displayPhotos/{albumId}/{photoId}/display")
+    public void displayPhotos(@PathVariable Long photoId, HttpServletResponse response) throws IOException {
+        log.debug("I am in the AlbumController displayPhotos()");
+
+        Photo photo = photoService.findPhotoById(photoId);
+        renderPhoto(response, photo);
+    }
+
+    private void renderPhoto(HttpServletResponse response, Photo photo) throws IOException {
         response.setContentType("image/jpeg");
         InputStream inputStream = new ByteArrayInputStream(photo.getImage());
         IOUtils.copy(inputStream, response.getOutputStream());
@@ -53,8 +63,8 @@ public class AlbumController {
     }
 
     @GetMapping("add_album")
-    public String addAlbum(Model model) {
-        log.debug("I am in the AlbumController addAlbum()");
+    public String displayForm(Model model) {
+        log.debug("I am in the AlbumController displayForm()");
 
         model.addAttribute("album", new Album());
 
@@ -94,13 +104,13 @@ public class AlbumController {
 
         model.addAttribute("album", albumService.findAlbumById(albumId));
         model.addAttribute("photos", photoService.findAllPhotos(albumId));
-        model.addAttribute("id", albumId);
+
         return "edit_album";
     }
 
     @PostMapping("edit_album/{albumId}/updateData")
-    public String submitAlbumsData(@PathVariable Long albumId, @ModelAttribute("album") Album album) {
-        log.debug("I am in the AlbumController submitAlbumsData()");
+    public String submitUpdatedData(@PathVariable Long albumId, @ModelAttribute("album") Album album) {
+        log.debug("I am in the AlbumController submitUpdatedData()");
 
         albumService.saveAlbum(album);
 
@@ -108,23 +118,12 @@ public class AlbumController {
     }
 
     @PostMapping("edit_album/{albumId}/updatePhoto")
-    public String submitAlbumsPhoto(@PathVariable Long albumId, @RequestParam("imagefile") MultipartFile file) {
-        log.debug("I am in the AlbumController submitAlbumsPhoto()");
+    public String submitNewPhoto(@PathVariable Long albumId, @RequestParam("imagefile") MultipartFile file) {
+        log.debug("I am in the AlbumController submitNewPhoto()");
 
         photoService.savePhoto(albumId, file);
 
         return "redirect:/edit_album/" + albumId;
-    }
-
-    @GetMapping("edit_album/{albumId}/{photoId}/display")
-    public void reloadEditAlbum(@PathVariable Long photoId, HttpServletResponse response) throws IOException {
-        log.debug("I am in the AlbumController reloadEditAlbum()");
-
-        Photo photo = photoService.findPhotoById(photoId);
-        response.setContentType("image/jpeg");
-        InputStream inputStream = new ByteArrayInputStream(photo.getImage());
-        IOUtils.copy(inputStream, response.getOutputStream());
-        response.flushBuffer();
     }
 
     @GetMapping("edit_album/{albumId}/{photoId}/delete")
@@ -140,20 +139,9 @@ public class AlbumController {
     public String showAlbum(@PathVariable Long albumId, Model model) {
         log.debug("I am in the AlbumController showAlbum()");
 
-        model.addAttribute("photos", photoService.findAllPhotos(albumId));
         model.addAttribute("album", albumService.findAlbumById(albumId));
+        model.addAttribute("photos", photoService.findAllPhotos(albumId));
 
         return "show_album";
-    }
-
-    @GetMapping("show_album/{albumId}/{photoId}/display")
-    public void displayAlbum(@PathVariable Long photoId, HttpServletResponse response) throws IOException {
-        log.debug("I am in the AlbumController diaplayAlbum()");
-
-        Photo photo = photoService.findPhotoById(photoId);
-        response.setContentType("image/jpeg");
-        InputStream inputStream = new ByteArrayInputStream(photo.getImage());
-        IOUtils.copy(inputStream, response.getOutputStream());
-        response.flushBuffer();
     }
 }
