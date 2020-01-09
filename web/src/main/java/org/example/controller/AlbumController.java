@@ -6,6 +6,7 @@ import org.example.domain.Album;
 import org.example.domain.Photo;
 import org.example.service.AlbumService;
 import org.example.service.PhotoService;
+import org.example.util.ViewNames;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,7 +37,7 @@ public class AlbumController {
 
         model.addAttribute("albums", albumService.findAllAlbums());
 
-        return "index";
+        return ViewNames.INDEX;
     }
 
     @GetMapping("/show/{albumId}")
@@ -68,7 +69,7 @@ public class AlbumController {
 
         model.addAttribute("album", new Album());
 
-        return "add_album";
+        return ViewNames.ADD_ALBUM;
     }
 
     @PostMapping("add_album")
@@ -77,7 +78,7 @@ public class AlbumController {
 
         Album savedAlbum = albumService.saveAlbum(album);
 
-        return "redirect:/add_photo/" + savedAlbum.getId();
+        return ViewNames.REDIRECT_ADD_PHOTO + savedAlbum.getId();
     }
 
     @GetMapping("remove_album")
@@ -86,7 +87,7 @@ public class AlbumController {
 
         model.addAttribute("albums", albumService.findAllAlbums());
 
-        return "remove_album";
+        return ViewNames.REMOVE_ALBUM;
     }
 
     @GetMapping("remove_album/{albumId}/delete")
@@ -95,7 +96,7 @@ public class AlbumController {
 
         albumService.deleteAlbumById(albumId);
 
-        return "redirect:/remove_album";
+        return ViewNames.REDIRECT_REMOVE_ALBUM;
     }
 
     @GetMapping("edit_album/{albumId}")
@@ -105,7 +106,7 @@ public class AlbumController {
         model.addAttribute("album", albumService.findAlbumById(albumId));
         model.addAttribute("photos", photoService.findAllPhotos(albumId));
 
-        return "edit_album";
+        return ViewNames.EDIT_ALBUM;
     }
 
     @PostMapping("edit_album/{albumId}/updateData")
@@ -114,7 +115,7 @@ public class AlbumController {
 
         albumService.saveAlbum(album);
 
-        return "redirect:/edit_album/" + albumId;
+        return ViewNames.REDIRECT_EDIT_ALBUM + albumId;
     }
 
     @PostMapping("edit_album/{albumId}/updatePhoto")
@@ -123,7 +124,7 @@ public class AlbumController {
 
         photoService.savePhoto(albumId, file);
 
-        return "redirect:/edit_album/" + albumId;
+        return ViewNames.REDIRECT_EDIT_ALBUM + albumId;
     }
 
     @GetMapping("edit_album/{albumId}/{photoId}/delete")
@@ -132,7 +133,7 @@ public class AlbumController {
 
         photoService.deletePhotoById(photoId);
 
-        return "redirect:/edit_album/" + albumId;
+        return ViewNames.REDIRECT_EDIT_ALBUM + albumId;
     }
 
     @GetMapping("show_album/{albumId}")
@@ -142,6 +143,6 @@ public class AlbumController {
         model.addAttribute("album", albumService.findAlbumById(albumId));
         model.addAttribute("photos", photoService.findAllPhotos(albumId));
 
-        return "show_album";
+        return ViewNames.SHOW_ALBUM;
     }
 }

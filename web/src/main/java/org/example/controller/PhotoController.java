@@ -3,6 +3,7 @@ package org.example.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.example.domain.Photo;
 import org.example.service.PhotoService;
+import org.example.util.ViewNames;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,14 +31,14 @@ public class PhotoController {
         model.addAttribute("albumId", albumId);
         model.addAttribute("photos", photoService.findAllPhotos(albumId));
 
-        return "add_photo";
+        return ViewNames.ADD_PHOTO;
     }
 
     @GetMapping("add_photo/{albumId}/show/{photoId}")
     public String reloadForm(@PathVariable("albumId") Long albumId, Model model) {
         log.debug("I am in the PhotoController reloadForm()");
 
-        return "redirect:/add_photo/" + albumId;
+        return ViewNames.REDIRECT_ADD_PHOTO + albumId;
     }
 
     @PostMapping("add_photo/{albumId}")
@@ -46,7 +47,7 @@ public class PhotoController {
 
         Photo savedPhoto = photoService.savePhoto(albumId, file);
 
-        return "redirect:/add_photo/" + albumId + "/show/" + savedPhoto.getId();
+        return ViewNames.REDIRECT_ADD_PHOTO + albumId + ViewNames.SHOW + savedPhoto.getId();
     }
 
     @GetMapping("add_photo/{albumId}/show/{photoId}/delete")
@@ -55,7 +56,7 @@ public class PhotoController {
 
         photoService.deletePhotoById(photoId);
 
-        return "redirect:/add_photo/" + albumId;
+        return ViewNames.REDIRECT_ADD_PHOTO + albumId;
     }
 
     @GetMapping("show_img/{albumId}/{photoId}")
@@ -65,7 +66,7 @@ public class PhotoController {
         model.addAttribute("photo", photoService.findPhotoById(photoId));
         model.addAttribute("albumId", albumId);
 
-        return "show_img";
+        return ViewNames.SHOW_IMG;
     }
 
 }
