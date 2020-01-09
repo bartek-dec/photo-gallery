@@ -37,6 +37,7 @@ public class PhotoController {
         response.setContentType("image/jpeg");
         InputStream inputStream = new ByteArrayInputStream(photo.getImage());
         IOUtils.copy(inputStream, response.getOutputStream());
+        response.flushBuffer();
     }
 
     @GetMapping("add_photo/{albumId}")
@@ -52,9 +53,9 @@ public class PhotoController {
     public String reloadForm(@PathVariable("albumId") Long albumId, Model model) {
         log.debug("I am in the PhotoController reloadForm()");
 
-        fillInModel(albumId, model);
+        //fillInModel(albumId, model);
 
-        return "add_photo";
+        return "redirect:/add_photo/" + albumId;
     }
 
     private void fillInModel(@PathVariable("albumId") Long albumId, Model model) {
@@ -64,13 +65,13 @@ public class PhotoController {
         model.addAttribute("photos", photos);
     }
 
-    @PostMapping("add_photo/{id}")
-    public String addPhoto(@PathVariable("id") Long id, @RequestParam("imagefile") MultipartFile file) {
+    @PostMapping("add_photo/{albumId}")
+    public String addPhoto(@PathVariable Long albumId, @RequestParam("imagefile") MultipartFile file) {
         log.debug("I am in the PhotoController addPhoto()");
 
-        Photo savedPhoto = photoService.savePhoto(id, file);
+        Photo savedPhoto = photoService.savePhoto(albumId, file);
 
-        return "redirect:/add_photo/" + id + "/show/" + savedPhoto.getId();
+        return "redirect:/add_photo/" + albumId + "/show/" + savedPhoto.getId();
     }
 
     @GetMapping("add_photo/{albumId}/show/{photoId}/delete")
@@ -80,6 +81,15 @@ public class PhotoController {
         photoService.deletePhotoById(photoId);
 
         return "redirect:/add_photo/" + albumId;
+    }
+
+    @GetMapping("show_img/{photoId}")
+    public String showImg(@PathVariable Long photoId, Model model) {
+        log.debug("I am in the PhotoController showImg()");
+
+        model.addAttribute("photo", photoService.findPhotoById(photoId));
+
+        return "show_img";
     }
 
 }

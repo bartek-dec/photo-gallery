@@ -9,9 +9,8 @@ import org.example.service.PhotoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayInputStream;
@@ -31,6 +30,8 @@ public class AlbumController {
         this.photoService = photoService;
     }
 
+    //repair form used to update images in update form functionality
+    //reformat code (get rid of doubled code)
     @GetMapping("/")
     public String home(Model model) {
         log.debug("I am in the AlbumController home()");
@@ -48,6 +49,7 @@ public class AlbumController {
         response.setContentType("image/jpeg");
         InputStream inputStream = new ByteArrayInputStream(photo.getImage());
         IOUtils.copy(inputStream, response.getOutputStream());
+        response.flushBuffer();
     }
 
     @GetMapping("add_album")
@@ -60,7 +62,7 @@ public class AlbumController {
     }
 
     @PostMapping("add_album")
-    public String createAlbum(Album album) {
+    public String createAlbum(@ModelAttribute("album") Album album) {
         log.debug("I am in the AlbumController createAlbum()");
 
         Album savedAlbum = albumService.saveAlbum(album);
@@ -86,11 +88,52 @@ public class AlbumController {
         return "redirect:/remove_album";
     }
 
-    @GetMapping("edit_album")
-    public String editAlbum() {
+    @GetMapping("edit_album/{albumId}")
+    public String editAlbum(@PathVariable Long albumId, Model model) {
         log.debug("I am in the AlbumController editAlbum()");
 
+        model.addAttribute("album", albumService.findAlbumById(albumId));
+        model.addAttribute("photos", photoService.findAllPhotos(albumId));
+        model.addAttribute("id", albumId);
         return "edit_album";
+    }
+
+    @PostMapping("edit_album/{albumId}/updateData")
+    public String submitAlbumsData(@PathVariable Long albumId, @ModelAttribute("album") Album album) {
+        log.debug("I am in the AlbumController submitAlbumsData()");
+
+        albumService.saveAlbum(album);
+
+        return "redirect:/edit_album/" + albumId;
+    }
+
+    @PostMapping("edit_album/{albumId}/updatePhoto")
+    public String submitAlbumsPhoto(@PathVariable Long albumId, @RequestParam("imagefile") MultipartFile file) {
+        log.debug("I am in the AlbumController submitAlbumsPhoto()");
+
+        photoService.savePhoto(albumId, file);
+
+        return "redirect:/edit_album/" + albumId;
+    }
+
+    @GetMapping("edit_album/{albumId}/{photoId}/display")
+    public void reloadEditAlbum(@PathVariable Long photoId, HttpServletResponse response) throws IOException {
+        log.debug("I am in the AlbumController reloadEditAlbum()");
+
+        Photo photo = photoService.findPhotoById(photoId);
+        response.setContentType("image/jpeg");
+        InputStream inputStream = new ByteArrayInputStream(photo.getImage());
+        IOUtils.copy(inputStream, response.getOutputStream());
+        response.flushBuffer();
+    }
+
+    @GetMapping("edit_album/{albumId}/{photoId}/delete")
+    public String deletePhoto(@PathVariable("albumId") Long albumId, @PathVariable("photoId") Long photoId) {
+        log.debug("I am in the PhotoController deletePhoto()");
+
+        photoService.deletePhotoById(photoId);
+
+        return "redirect:/edit_album/" + albumId;
     }
 
     @GetMapping("show_album/{albumId}")
@@ -111,5 +154,6 @@ public class AlbumController {
         response.setContentType("image/jpeg");
         InputStream inputStream = new ByteArrayInputStream(photo.getImage());
         IOUtils.copy(inputStream, response.getOutputStream());
+        response.flushBuffer();
     }
 }
