@@ -18,6 +18,7 @@
         <p>Create new album</p>
 
         <form action="#" th:action="@{'/add_album/'}"  th:object="${album}" method="POST" >
+            <input type="hidden" th:field="*{id}"/>
             <label>Album's name:</label>
             <input type="text" th:field="*{name}"/>
 

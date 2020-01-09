@@ -11,20 +11,19 @@
 
     <div th:replace="~{fragments/flags :: flagsFragment}"></div>
 
-    <div th:replace="~{fragments/longNav :: longNavFragment}"></div>
+    <div th:replace="~{fragments/longNav :: longNavFragment(${album.getId()})}"></div>
 
     <div class="form_wrapper">
 
         <div class="container_form_edit">
 
-            <p>Update album</p>
-
-            <form method="POST">
+            <form th:action="@{'/edit_album/' + ${album.getId()} + '/updateData'}" th:object="${album}" method="POST">
+                <input type="hidden" th:field="*{id}"/>
                 <label>Album's name:</label>
-                <input type="text">
+                <input type="text" th:field="*{name}">
 
                 <label>Date:</label>
-                <input type="date">
+                <input type="date" th:field="*{tripDate}">
 
                 <input type="submit" value="Submit">
             </form>
@@ -35,8 +34,8 @@
 
             <p>Add photo</p>
 
-            <form method="POST">
-                <input type="file" name="add photo">
+            <form method="POST" th:action="@{'/edit_album/' + ${album.getId()} + '/updatePhoto'}" enctype="multipart/form-data">
+                <input type="file" name="imagefile" id="imagefile" class="file">
                 <input type="submit" value="Submit">
             </form>
 
@@ -46,85 +45,19 @@
 
     <div class="container">
 
-        <div class="postcard_small">
-            <div class="photo_small">
-                <div>
-                    <img class="img_small" src="img/12.jpg">
-                </div>
-            </div>
-            <p><a class="link" href="#">Delete</a></p>
+        <div th:if="${photos.isEmpty()}">
+            <h2>Album is empty</h2>
         </div>
 
-        <div class="postcard_small">
+        <div class="postcard_small" th:unless="${photos.isEmpty()}" th:each="photo : ${photos}">
             <div class="photo_small">
                 <div>
-                    <img class="img_small" src="img/07.jpg">
+                    <img class="img_small" src="img/12.jpg"
+                         th:src="@{'/edit_album/' + ${id} + '/' + ${photo.id} + '/display'}">
                 </div>
             </div>
-            <p><a class="link" href="#">Delete</a></p>
-        </div>
-
-        <div class="postcard_small">
-            <div class="photo_small">
-                <div>
-                    <img class="img_small" src="img/08.jpg">
-                </div>
-            </div>
-            <p><a class="link" href="#">Delete</a></p>
-        </div>
-
-        <div class="postcard_small">
-            <div class="photo_small">
-                <div>
-                    <img class="img_small" src="img/12.jpg">
-                </div>
-            </div>
-            <p><a class="link" href="#">Delete</a></p>
-        </div>
-
-        <div class="postcard_small">
-            <div class="photo_small">
-                <div>
-                    <img class="img_small" src="img/10.jpg">
-                </div>
-            </div>
-            <p><a class="link" href="#">Delete</a></p>
-        </div>
-
-        <div class="postcard_small">
-            <div class="photo_small">
-                <div>
-                    <img class="img_small" src="img/11.jpg">
-                </div>
-            </div>
-            <p><a class="link" href="#">Delete</a></p>
-        </div>
-
-        <div class="postcard_small">
-            <div class="photo_small">
-                <div>
-                    <img class="img_small" src="img/08.jpg">
-                </div>
-            </div>
-            <p><a class="link" href="#">Delete</a></p>
-        </div>
-
-        <div class="postcard_small">
-            <div class="photo_small">
-                <div>
-                    <img class="img_small" src="img/11.jpg">
-                </div>
-            </div>
-            <p><a class="link" href="#">Delete</a></p>
-        </div>
-
-        <div class="postcard_small">
-            <div class="photo_small">
-                <div>
-                    <img class="img_small" src="img/08.jpg">
-                </div>
-            </div>
-            <p><a class="link" href="#">Delete</a></p>
+            <p><a class="link" href="#" th:href="@{'/edit_album/' + ${id} + '/' + ${photo.id} + '/delete'}">Delete</a>
+            </p>
         </div>
 
     </div>

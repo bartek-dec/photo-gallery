@@ -11,7 +11,7 @@
 
     <div th:replace="~{fragments/flags :: flagsFragment}"></div>
 
-    <div th:replace="~{fragments/longNav :: longNavFragment}"></div>
+    <div th:replace="~{fragments/longNav :: longNavFragment(${album.getId()})}"></div>
 
     <div class="container">
 
@@ -22,8 +22,9 @@
         <div class="postcard" th:each="photo : ${photos}">
             <div class="photo">
                 <div>
-                    <a href="#" target="_blank">
-                        <img class="img" src="img/12.jpg" th:src="@{'/show_album/' + ${album.getId()} + '/' + ${photo.getId()} + '/display'}">
+                    <a href="#" target="_blank" th:href="@{'/show_img/' + ${photo.getId()}}">
+                        <img class="img" src="img/12.jpg"
+                             th:src="@{'/show_album/' + ${album.getId()} + '/' + ${photo.getId()} + '/display'}">
                     </a>
                 </div>
             </div>
