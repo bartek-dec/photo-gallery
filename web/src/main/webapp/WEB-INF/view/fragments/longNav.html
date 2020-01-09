@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<div class="nav" th:fragment="longNavFragment">
+<div class="nav" th:fragment="longNavFragment (albumId)">
 
     <ol>
         <li><a th:href="@{'/'}">Home page</a></li>
         <li><a th:href="@{'/add_album/'}">Add album</a></li>
-        <li><a th:href="@{'/edit_album/'}">Edit album</a></li>
+        <li><a th:href="@{'/edit_album/' + ${albumId}}">Edit album</a></li>
         <li><a th:href="@{'/remove_album/'}">Remove album</a></li>
         <li><a th:href="@{https://github.com/bartek-dec}">About author</a></li>
     </ol>
