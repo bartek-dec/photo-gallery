@@ -22,11 +22,12 @@
         <div class="postcard" th:each="album : ${albums}">
 
             <div class="photo">
-                <img class="img" src="img/01.jpg" th:src="@{'/show/' + ${album.id}}">
+                <img class="img" th:src="@{'/show/' + ${album.id}}">
             </div>
             <p>
                 <a href="#" th:text="'Delete ' + ${album.getName() + ' album'}"
-                   th:href="@{'/remove_album/' + ${album.getId()} + '/delete'}"></a>
+                   th:href="@{'/remove_album/' + ${album.getId()} + '/delete'}">
+                </a>
             </p>
 
         </div>

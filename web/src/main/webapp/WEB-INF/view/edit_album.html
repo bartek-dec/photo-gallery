@@ -34,7 +34,8 @@
 
             <p>Add photo</p>
 
-            <form method="POST" th:action="@{'/edit_album/' + ${album.getId()} + '/updatePhoto'}" enctype="multipart/form-data">
+            <form method="POST" th:action="@{'/edit_album/' + ${album.getId()} + '/updatePhoto'}"
+                  enctype="multipart/form-data">
                 <input type="file" name="imagefile" id="imagefile" class="file">
                 <input type="submit" value="Submit">
             </form>
@@ -52,11 +53,13 @@
         <div class="postcard_small" th:unless="${photos.isEmpty()}" th:each="photo : ${photos}">
             <div class="photo_small">
                 <div>
-                    <img class="img_small" src="img/12.jpg"
-                         th:src="@{'/edit_album/' + ${id} + '/' + ${photo.id} + '/display'}">
+                    <img class="img_small"
+                         th:src="@{'/displayPhotos/' + ${album.getId()} + '/' + ${photo.getId()} + '/display'}">
                 </div>
             </div>
-            <p><a class="link" href="#" th:href="@{'/edit_album/' + ${id} + '/' + ${photo.id} + '/delete'}">Delete</a>
+            <p>
+                <a class="link" href="#"
+                   th:href="@{'/edit_album/' + ${album.getId()} + '/' + ${photo.getId()} + '/delete'}">Delete</a>
             </p>
         </div>
 

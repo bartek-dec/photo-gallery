@@ -13,7 +13,8 @@
 
             <div>
                 <div>
-                    <img class="large_img" src="img/12.jpg" th:src="@{'/show_album/' + id + '/' + ${photo.getId()} + '/display'}">
+                    <img class="large_img"
+                         th:src="@{'/displayPhotos/' + ${albumId} + '/' + ${photo.getId()} + '/display'}">
                 </div>
             </div>
         </div>
