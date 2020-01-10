@@ -3,6 +3,7 @@ package org.example.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.example.domain.Photo;
 import org.example.service.PhotoService;
+import org.example.util.AttributeNames;
 import org.example.util.Mappings;
 import org.example.util.ViewNames;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,8 @@ public class PhotoController {
     public String displayForm(@PathVariable("albumId") Long albumId, Model model) {
         log.debug("I am in the PhotoController displayForm()");
 
-        model.addAttribute("albumId", albumId);
-        model.addAttribute("photos", photoService.findAllPhotos(albumId));
+        model.addAttribute(AttributeNames.ALBUM_ID, albumId);
+        model.addAttribute(AttributeNames.PHOTOS, photoService.findAllPhotos(albumId));
 
         return ViewNames.ADD_PHOTO;
     }
@@ -64,8 +65,8 @@ public class PhotoController {
     public String showImage(@PathVariable Long albumId, @PathVariable Long photoId, Model model) {
         log.debug("I am in the PhotoController showImg()");
 
-        model.addAttribute("photo", photoService.findPhotoById(photoId));
-        model.addAttribute("albumId", albumId);
+        model.addAttribute(AttributeNames.PHOTO, photoService.findPhotoById(photoId));
+        model.addAttribute(AttributeNames.ALBUM_ID, albumId);
 
         return ViewNames.SHOW_IMG;
     }

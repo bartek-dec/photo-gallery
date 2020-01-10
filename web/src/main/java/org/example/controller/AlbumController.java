@@ -6,6 +6,7 @@ import org.example.domain.Album;
 import org.example.domain.Photo;
 import org.example.service.AlbumService;
 import org.example.service.PhotoService;
+import org.example.util.AttributeNames;
 import org.example.util.Mappings;
 import org.example.util.ViewNames;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,7 +69,7 @@ public class AlbumController {
     public String displayForm(Model model) {
         log.debug("I am in the AlbumController displayForm()");
 
-        model.addAttribute("album", new Album());
+        model.addAttribute(AttributeNames.ALBUM, new Album());
 
         return ViewNames.ADD_ALBUM;
     }
@@ -86,7 +87,7 @@ public class AlbumController {
     public String displayExistingAlbums(Model model) {
         log.debug("I am in the AlbumController displayExistingAlbums() ");
 
-        model.addAttribute("albums", albumService.findAllAlbums());
+        model.addAttribute(AttributeNames.ALBUMS, albumService.findAllAlbums());
 
         return ViewNames.REMOVE_ALBUM;
     }
@@ -104,8 +105,8 @@ public class AlbumController {
     public String editAlbum(@PathVariable Long albumId, Model model) {
         log.debug("I am in the AlbumController editAlbum()");
 
-        model.addAttribute("album", albumService.findAlbumById(albumId));
-        model.addAttribute("photos", photoService.findAllPhotos(albumId));
+        model.addAttribute(AttributeNames.ALBUM, albumService.findAlbumById(albumId));
+        model.addAttribute(AttributeNames.PHOTOS, photoService.findAllPhotos(albumId));
 
         return ViewNames.EDIT_ALBUM;
     }
@@ -141,8 +142,8 @@ public class AlbumController {
     public String showAlbum(@PathVariable Long albumId, Model model) {
         log.debug("I am in the AlbumController showAlbum()");
 
-        model.addAttribute("album", albumService.findAlbumById(albumId));
-        model.addAttribute("photos", photoService.findAllPhotos(albumId));
+        model.addAttribute(AttributeNames.ALBUM, albumService.findAlbumById(albumId));
+        model.addAttribute(AttributeNames.PHOTOS, photoService.findAllPhotos(albumId));
 
         return ViewNames.SHOW_ALBUM;
     }
