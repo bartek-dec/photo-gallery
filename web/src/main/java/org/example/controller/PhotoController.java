@@ -3,6 +3,7 @@ package org.example.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.example.domain.Photo;
 import org.example.service.PhotoService;
+import org.example.util.Mappings;
 import org.example.util.ViewNames;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,7 +25,7 @@ public class PhotoController {
         this.photoService = photoService;
     }
 
-    @GetMapping("add_photo/{albumId}")
+    @GetMapping(Mappings.ADD_PHOTO_ALBUM_ID)
     public String displayForm(@PathVariable("albumId") Long albumId, Model model) {
         log.debug("I am in the PhotoController displayForm()");
 
@@ -34,32 +35,32 @@ public class PhotoController {
         return ViewNames.ADD_PHOTO;
     }
 
-    @GetMapping("add_photo/{albumId}/show/{photoId}")
+    @GetMapping(Mappings.ADD_PHOTO_ALBUM_ID_SHOW_PHOTO_ID)
     public String reloadForm(@PathVariable("albumId") Long albumId, Model model) {
         log.debug("I am in the PhotoController reloadForm()");
 
-        return ViewNames.REDIRECT_ADD_PHOTO + albumId;
+        return "redirect:/" + Mappings.ADD_PHOTO + albumId;
     }
 
-    @PostMapping("add_photo/{albumId}")
+    @PostMapping(Mappings.ADD_PHOTO_ALBUM_ID)
     public String addPhoto(@PathVariable Long albumId, @RequestParam("imagefile") MultipartFile file) {
         log.debug("I am in the PhotoController addPhoto()");
 
         Photo savedPhoto = photoService.savePhoto(albumId, file);
 
-        return ViewNames.REDIRECT_ADD_PHOTO + albumId + ViewNames.SHOW + savedPhoto.getId();
+        return "redirect:/" + Mappings.ADD_PHOTO + albumId + Mappings.SHOW + savedPhoto.getId();
     }
 
-    @GetMapping("add_photo/{albumId}/show/{photoId}/delete")
+    @GetMapping(Mappings.ADD_PHOTO_ALBUM_ID_SHOW_PHOTO_ID_DELETE)
     public String deletePhoto(@PathVariable("albumId") Long albumId, @PathVariable("photoId") Long photoId) {
         log.debug("I am in the PhotoController deletePhoto()");
 
         photoService.deletePhotoById(photoId);
 
-        return ViewNames.REDIRECT_ADD_PHOTO + albumId;
+        return "redirect:/" + Mappings.ADD_PHOTO + albumId;
     }
 
-    @GetMapping("show_img/{albumId}/{photoId}")
+    @GetMapping(Mappings.SHOW_IMG_ALBUM_ID_PHOTO_ID)
     public String showImage(@PathVariable Long albumId, @PathVariable Long photoId, Model model) {
         log.debug("I am in the PhotoController showImg()");
 

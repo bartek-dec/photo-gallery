@@ -6,6 +6,7 @@ import org.example.domain.Album;
 import org.example.domain.Photo;
 import org.example.service.AlbumService;
 import org.example.service.PhotoService;
+import org.example.util.Mappings;
 import org.example.util.ViewNames;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,7 +32,7 @@ public class AlbumController {
         this.photoService = photoService;
     }
 
-    @GetMapping("/")
+    @GetMapping(Mappings.HOME)
     public String home(Model model) {
         log.debug("I am in the AlbumController home()");
 
@@ -40,7 +41,7 @@ public class AlbumController {
         return ViewNames.INDEX;
     }
 
-    @GetMapping("/show/{albumId}")
+    @GetMapping(Mappings.SHOW_ALBUMS)
     public void showFirstPhoto(@PathVariable("albumId") Long albumId, HttpServletResponse response) throws IOException {
         log.debug("I am in the AlbumController showFirstPhoto()");
 
@@ -48,7 +49,7 @@ public class AlbumController {
         renderPhoto(response, photo);
     }
 
-    @GetMapping("displayPhotos/{albumId}/{photoId}/display")
+    @GetMapping(Mappings.DISPLAY_PHOTOS_ALBUM_ID_PHOTO_ID_DISPLAY)
     public void displayPhotos(@PathVariable Long photoId, HttpServletResponse response) throws IOException {
         log.debug("I am in the AlbumController displayPhotos()");
 
@@ -63,7 +64,7 @@ public class AlbumController {
         response.flushBuffer();
     }
 
-    @GetMapping("add_album")
+    @GetMapping(Mappings.ADD_ALBUM)
     public String displayForm(Model model) {
         log.debug("I am in the AlbumController displayForm()");
 
@@ -72,16 +73,16 @@ public class AlbumController {
         return ViewNames.ADD_ALBUM;
     }
 
-    @PostMapping("add_album")
+    @PostMapping(Mappings.ADD_ALBUM)
     public String createAlbum(@ModelAttribute("album") Album album) {
         log.debug("I am in the AlbumController createAlbum()");
 
         Album savedAlbum = albumService.saveAlbum(album);
 
-        return ViewNames.REDIRECT_ADD_PHOTO + savedAlbum.getId();
+        return "redirect:/" + Mappings.ADD_PHOTO + savedAlbum.getId();
     }
 
-    @GetMapping("remove_album")
+    @GetMapping(Mappings.REMOVE_ALBUM)
     public String displayExistingAlbums(Model model) {
         log.debug("I am in the AlbumController displayExistingAlbums() ");
 
@@ -90,16 +91,16 @@ public class AlbumController {
         return ViewNames.REMOVE_ALBUM;
     }
 
-    @GetMapping("remove_album/{albumId}/delete")
+    @GetMapping(Mappings.REMOVE_ALBUM_ALBUM_ID_DELETE)
     public String removeAlbum(@PathVariable Long albumId) {
         log.debug("I am in the AlbumController removeAlbum()");
 
         albumService.deleteAlbumById(albumId);
 
-        return ViewNames.REDIRECT_REMOVE_ALBUM;
+        return "redirect:/" + Mappings.REMOVE_ALBUM;
     }
 
-    @GetMapping("edit_album/{albumId}")
+    @GetMapping(Mappings.EDIT_ALBUM_ALBUM_ID)
     public String editAlbum(@PathVariable Long albumId, Model model) {
         log.debug("I am in the AlbumController editAlbum()");
 
@@ -109,34 +110,34 @@ public class AlbumController {
         return ViewNames.EDIT_ALBUM;
     }
 
-    @PostMapping("edit_album/{albumId}/updateData")
+    @PostMapping(Mappings.EDIT_ALBUM_ALBUM_ID_UPDATE_DATA)
     public String submitUpdatedData(@PathVariable Long albumId, @ModelAttribute("album") Album album) {
         log.debug("I am in the AlbumController submitUpdatedData()");
 
         albumService.saveAlbum(album);
 
-        return ViewNames.REDIRECT_EDIT_ALBUM + albumId;
+        return "redirect:/" + Mappings.EDIT_ALBUM + albumId;
     }
 
-    @PostMapping("edit_album/{albumId}/updatePhoto")
+    @PostMapping(Mappings.EDIT_ALBUM_ALBUM_ID_UPDATE_PHOTO)
     public String submitNewPhoto(@PathVariable Long albumId, @RequestParam("imagefile") MultipartFile file) {
         log.debug("I am in the AlbumController submitNewPhoto()");
 
         photoService.savePhoto(albumId, file);
 
-        return ViewNames.REDIRECT_EDIT_ALBUM + albumId;
+        return "redirect:/" + Mappings.EDIT_ALBUM + albumId;
     }
 
-    @GetMapping("edit_album/{albumId}/{photoId}/delete")
+    @GetMapping(Mappings.EDIT_ALBUM_ALBUM_ID_PHOTO_ID_DELETE)
     public String deletePhoto(@PathVariable("albumId") Long albumId, @PathVariable("photoId") Long photoId) {
         log.debug("I am in the PhotoController deletePhoto()");
 
         photoService.deletePhotoById(photoId);
 
-        return ViewNames.REDIRECT_EDIT_ALBUM + albumId;
+        return "redirect:/" + Mappings.EDIT_ALBUM + albumId;
     }
 
-    @GetMapping("show_album/{albumId}")
+    @GetMapping(Mappings.SHOW_ALBUM_ALBUM_ID)
     public String showAlbum(@PathVariable Long albumId, Model model) {
         log.debug("I am in the AlbumController showAlbum()");
 
