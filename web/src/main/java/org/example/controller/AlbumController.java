@@ -43,7 +43,7 @@ public class AlbumController {
     }
 
     @GetMapping(Mappings.SHOW_ALBUMS)
-    public void showFirstPhoto(@PathVariable("albumId") Long albumId, HttpServletResponse response) throws IOException {
+    public void showFirstPhoto(@PathVariable Long albumId, HttpServletResponse response) throws IOException {
         log.debug("I am in the AlbumController showFirstPhoto()");
 
         Photo photo = photoService.findAllPhotos(albumId).get(0);
@@ -130,7 +130,7 @@ public class AlbumController {
     }
 
     @GetMapping(Mappings.EDIT_ALBUM_ALBUM_ID_PHOTO_ID_DELETE)
-    public String deletePhoto(@PathVariable("albumId") Long albumId, @PathVariable("photoId") Long photoId) {
+    public String deletePhoto(@PathVariable Long albumId, @PathVariable Long photoId) {
         log.debug("I am in the PhotoController deletePhoto()");
 
         photoService.deletePhotoById(photoId);

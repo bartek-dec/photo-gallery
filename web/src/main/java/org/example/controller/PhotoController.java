@@ -27,7 +27,7 @@ public class PhotoController {
     }
 
     @GetMapping(Mappings.ADD_PHOTO_ALBUM_ID)
-    public String displayForm(@PathVariable("albumId") Long albumId, Model model) {
+    public String displayForm(@PathVariable Long albumId, Model model) {
         log.debug("I am in the PhotoController displayForm()");
 
         model.addAttribute(AttributeNames.ALBUM_ID, albumId);
@@ -37,7 +37,7 @@ public class PhotoController {
     }
 
     @GetMapping(Mappings.ADD_PHOTO_ALBUM_ID_SHOW_PHOTO_ID)
-    public String reloadForm(@PathVariable("albumId") Long albumId, Model model) {
+    public String reloadForm(@PathVariable Long albumId) {
         log.debug("I am in the PhotoController reloadForm()");
 
         return "redirect:/" + Mappings.ADD_PHOTO + albumId;
@@ -53,7 +53,7 @@ public class PhotoController {
     }
 
     @GetMapping(Mappings.ADD_PHOTO_ALBUM_ID_SHOW_PHOTO_ID_DELETE)
-    public String deletePhoto(@PathVariable("albumId") Long albumId, @PathVariable("photoId") Long photoId) {
+    public String deletePhoto(@PathVariable Long albumId, @PathVariable Long photoId) {
         log.debug("I am in the PhotoController deletePhoto()");
 
         photoService.deletePhotoById(photoId);
