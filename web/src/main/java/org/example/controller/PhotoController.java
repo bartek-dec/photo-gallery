@@ -1,7 +1,6 @@
 package org.example.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import org.example.domain.Photo;
 import org.example.service.PhotoService;
 import org.example.util.AttributeNames;
 import org.example.util.Mappings;
@@ -36,20 +35,15 @@ public class PhotoController {
         return ViewNames.ADD_PHOTO;
     }
 
-    @GetMapping(Mappings.ADD_PHOTO_ALBUM_ID_SHOW_PHOTO_ID)
-    public String reloadForm(@PathVariable Long albumId) {
-        log.debug("I am in the PhotoController reloadForm()");
-
-        return "redirect:/" + Mappings.ADD_PHOTO + albumId;
-    }
-
     @PostMapping(Mappings.ADD_PHOTO_ALBUM_ID)
-    public String addPhoto(@PathVariable Long albumId, @RequestParam("imagefile") MultipartFile file) {
+    public String addPhoto(@PathVariable Long albumId, @RequestParam(AttributeNames.IMAGE_FILE) MultipartFile file) {
         log.debug("I am in the PhotoController addPhoto()");
 
-        Photo savedPhoto = photoService.savePhoto(albumId, file);
+        if (file.getContentType().equals(AttributeNames.CONTENT_TYPE)) {
+            photoService.savePhoto(albumId, file);
+        }
 
-        return "redirect:/" + Mappings.ADD_PHOTO + albumId + Mappings.SHOW + savedPhoto.getId();
+        return "redirect:/" + Mappings.ADD_PHOTO + albumId;
     }
 
     @GetMapping(Mappings.ADD_PHOTO_ALBUM_ID_SHOW_PHOTO_ID_DELETE)
@@ -70,5 +64,4 @@ public class PhotoController {
 
         return ViewNames.SHOW_IMG;
     }
-
 }

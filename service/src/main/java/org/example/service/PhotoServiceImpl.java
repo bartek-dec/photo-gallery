@@ -3,6 +3,7 @@ package org.example.service;
 import lombok.extern.slf4j.Slf4j;
 import org.example.domain.Album;
 import org.example.domain.Photo;
+import org.example.exception.NotFoundException;
 import org.example.repository.AlbumRepository;
 import org.example.repository.PhotoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,7 @@ public class PhotoServiceImpl implements PhotoService {
         Optional<Album> albumOptional = albumRepository.findById(albumId);
 
         if (!albumOptional.isPresent()) {
-            return null;
+            throw new NotFoundException();
         }
 
         return new ArrayList<>(albumOptional.get().getPhotos());
@@ -50,6 +51,7 @@ public class PhotoServiceImpl implements PhotoService {
 
         if (!albumOptional.isPresent()) {
             log.debug("Album with ID = " + albumId + " has not been found");
+            throw new NotFoundException();
         }
 
         Album album = albumOptional.get();
@@ -79,7 +81,7 @@ public class PhotoServiceImpl implements PhotoService {
         Optional<Photo> photoOptional = photoRepository.findById(photoId);
 
         if (!photoOptional.isPresent()) {
-            return null;
+            throw new NotFoundException();
         }
         return photoOptional.get();
     }

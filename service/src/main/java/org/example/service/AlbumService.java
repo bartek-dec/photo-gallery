@@ -14,6 +14,4 @@ public interface AlbumService {
     Album findAlbumById(Long albumId);
 
     void deleteAlbumById(Long albumId);
-
-    List<Photo> getPhotos(Long albumId);
 }
