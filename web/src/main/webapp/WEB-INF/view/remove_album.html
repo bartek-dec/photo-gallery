@@ -16,7 +16,7 @@
     <div class="container">
 
         <div th:if="${albums.isEmpty()}">
-            <h2>There are no albums to delete</h2>
+            <h2 th:text="#{no.albums}"></h2>
         </div>
 
         <div class="postcard" th:each="album : ${albums}">
@@ -25,7 +25,7 @@
                 <img class="img" th:src="@{'/show/' + ${album.id}}">
             </div>
             <p>
-                <a href="#" th:text="'Delete ' + ${album.getName() + ' album'}"
+                <a href="#" th:text="#{delete} + ' ' + ${album.getName()}"
                    th:href="@{'/remove_album/' + ${album.getId()} + '/delete'}">
                 </a>
             </p>

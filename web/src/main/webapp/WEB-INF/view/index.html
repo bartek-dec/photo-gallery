@@ -15,8 +15,8 @@
 
     <div class="container">
 
-        <div th:if="${albums.isEmpty()}">
-            <h2>There are no albums to show</h2>
+        <div th:if="${albums.isEmpty()}" >
+            <h2 th:text="#{no.albums.notification}"></h2>
         </div>
 
         <div th:unless="${albums.isEmpty()}">
@@ -29,7 +29,7 @@
                         <a class="link" href="#" th:href="@{'/show_album/' + ${album.id}}">
 								<span class="icon">
 									<i class="icon-search"></i>
-									<p>See album</p>
+									<p th:text="#{see.album}"></p>
 								</span>
                         </a>
                     </div>

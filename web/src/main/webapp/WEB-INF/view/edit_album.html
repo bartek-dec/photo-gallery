@@ -19,25 +19,26 @@
 
             <form th:action="@{'/edit_album/' + ${album.getId()} + '/updateData'}" th:object="${album}" method="POST">
                 <input type="hidden" th:field="*{id}"/>
-                <label>Album's name:</label>
+
+                <label th:text="#{albums.name}"></label>
                 <input type="text" th:field="*{name}">
 
-                <label>Date:</label>
+                <label th:text="#{trips.date}"></label>
                 <input type="date" th:field="*{tripDate}">
 
-                <input type="submit" value="Submit">
+                <input type="submit" th:value="#{submit.form}">
             </form>
 
         </div>
 
         <div class="container_form_edit">
 
-            <p>Add photo</p>
+            <p th:text="#{add.photo}"></p>
 
             <form method="POST" th:action="@{'/edit_album/' + ${album.getId()} + '/updatePhoto'}"
                   enctype="multipart/form-data">
                 <input type="file" name="imagefile" id="imagefile" class="file">
-                <input type="submit" value="Submit">
+                <input type="submit" th:value="#{submit.form}">
             </form>
 
         </div>
@@ -47,7 +48,7 @@
     <div class="container">
 
         <div th:if="${photos.isEmpty()}">
-            <h2>Album is empty</h2>
+            <h2 th:text="#{no.photo.notification}"></h2>
         </div>
 
         <div class="postcard_small" th:unless="${photos.isEmpty()}" th:each="photo : ${photos}">
@@ -59,7 +60,8 @@
             </div>
             <p>
                 <a class="link" href="#"
-                   th:href="@{'/edit_album/' + ${album.getId()} + '/' + ${photo.getId()} + '/delete'}">Delete</a>
+                   th:href="@{'/edit_album/' + ${album.getId()} + '/' + ${photo.getId()} + '/delete'}"
+                   th:text="#{delete.photo}"></a>
             </p>
         </div>
 

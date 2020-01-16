@@ -15,11 +15,11 @@
 
     <div class="container_form">
 
-        <p>Add photo</p>
+        <p th:text="#{add.photo}"></p>
 
         <form method="POST" th:action="@{'/add_photo/' + ${albumId}}" enctype="multipart/form-data">
             <input type="file" name="imagefile" id="imagefile" class="file">
-            <input type="submit" value="Submit">
+            <input type="submit" th:value="#{submit.form}">
         </form>
 
     </div>
@@ -27,7 +27,7 @@
     <div class="container">
 
         <div th:if="${photos.isEmpty()}">
-            <h2>Album is empty</h2>
+            <h2 th:text="#{no.photo.notification}"></h2>
         </div>
 
         <div>
@@ -40,7 +40,8 @@
                     </div>
                 </div>
                 <p><a class="link" href="#"
-                      th:href="@{'/add_photo/' + ${albumId} + '/show/' + ${photo.id} + '/delete'}">Delete</a>
+                      th:href="@{'/add_photo/' + ${albumId} + '/show/' + ${photo.id} + '/delete'}"
+                      th:text="#{delete.photo}"></a>
                 </p>
             </div>
 
