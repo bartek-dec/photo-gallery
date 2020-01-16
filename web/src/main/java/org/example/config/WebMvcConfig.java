@@ -35,6 +35,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         htmlResolver.setPrefix("/WEB-INF/view/");
         htmlResolver.setSuffix(".html");
         htmlResolver.setCharacterEncoding("UTF-8");
+        htmlResolver.setUseDecoupledLogic(true);
 
         return htmlResolver;
     }
