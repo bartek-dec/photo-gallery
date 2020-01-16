@@ -32,7 +32,6 @@ public final class Mappings {
     public static final String EDIT_ALBUM_ALBUM_ID_UPDATE_PHOTO = EDIT_ALBUM + ALBUM_ID + SLASH + UPDATE_PHOTO;
     public static final String EDIT_ALBUM_ALBUM_ID_PHOTO_ID_DELETE =
             EDIT_ALBUM + ALBUM_ID + SLASH + PHOTO_ID + SLASH + DELETE;
-    public static final String ADD_PHOTO_ALBUM_ID_SHOW_PHOTO_ID = ADD_PHOTO + ALBUM_ID + SHOW + PHOTO_ID;
     public static final String ADD_PHOTO_ALBUM_ID_SHOW_PHOTO_ID_DELETE =
             ADD_PHOTO + ALBUM_ID + SHOW + PHOTO_ID + SLASH + DELETE;
     public static final String SHOW_IMG_ALBUM_ID_PHOTO_ID = SHOW_IMG + ALBUM_ID + SLASH + PHOTO_ID;
