@@ -1,0 +1,7 @@
+<thlogic>
+    <attr sel="#fragment" th:fragment="flagsFragment"/>
+    <attr sel="#href-pl" th:href="@{__${T(org.example.util.Mappings).LANG_PL}__}"/>
+    <attr sel="#src-pl" th:src="@{/staticResources/png/flag_PL.png}"/>
+    <attr sel="#href-en" th:href="@{__${T(org.example.util.Mappings).LANG_EN}__}"/>
+    <attr sel="#src-en" th:src="@{/staticResources/png/flag_GB.png}"/>
+</thlogic>
