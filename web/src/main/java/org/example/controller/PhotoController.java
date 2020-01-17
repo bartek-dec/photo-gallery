@@ -43,7 +43,7 @@ public class PhotoController {
             photoService.savePhoto(albumId, file);
         }
 
-        return "redirect:/" + Mappings.ADD_PHOTO + albumId;
+        return "redirect:" + Mappings.ADD_PHOTO + albumId;
     }
 
     @GetMapping(Mappings.ADD_PHOTO_ALBUM_ID_SHOW_PHOTO_ID_DELETE)
@@ -52,7 +52,7 @@ public class PhotoController {
 
         photoService.deletePhotoById(photoId);
 
-        return "redirect:/" + Mappings.ADD_PHOTO + albumId;
+        return "redirect:" + Mappings.ADD_PHOTO + albumId;
     }
 
     @GetMapping(Mappings.SHOW_IMG_ALBUM_ID_PHOTO_ID)

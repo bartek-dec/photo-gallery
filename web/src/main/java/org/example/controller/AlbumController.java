@@ -86,7 +86,7 @@ public class AlbumController {
 
         Album savedAlbum = albumService.saveAlbum(album);
 
-        return "redirect:/" + Mappings.ADD_PHOTO + savedAlbum.getId();
+        return "redirect:" + Mappings.ADD_PHOTO + savedAlbum.getId();
     }
 
     @GetMapping(Mappings.REMOVE_ALBUM)
@@ -104,7 +104,7 @@ public class AlbumController {
 
         albumService.deleteAlbumById(albumId);
 
-        return "redirect:/" + Mappings.REMOVE_ALBUM;
+        return "redirect:" + Mappings.REMOVE_ALBUM;
     }
 
     @GetMapping(Mappings.EDIT_ALBUM_ALBUM_ID)
@@ -123,7 +123,7 @@ public class AlbumController {
 
         albumService.saveAlbum(album);
 
-        return "redirect:/" + Mappings.EDIT_ALBUM + albumId;
+        return "redirect:" + Mappings.EDIT_ALBUM + albumId;
     }
 
     @PostMapping(Mappings.EDIT_ALBUM_ALBUM_ID_UPDATE_PHOTO)
@@ -134,7 +134,7 @@ public class AlbumController {
             photoService.savePhoto(albumId, file);
         }
 
-        return "redirect:/" + Mappings.EDIT_ALBUM + albumId;
+        return "redirect:" + Mappings.EDIT_ALBUM + albumId;
     }
 
     @GetMapping(Mappings.EDIT_ALBUM_ALBUM_ID_PHOTO_ID_DELETE)
@@ -143,7 +143,7 @@ public class AlbumController {
 
         photoService.deletePhotoById(photoId);
 
-        return "redirect:/" + Mappings.EDIT_ALBUM + albumId;
+        return "redirect:" + Mappings.EDIT_ALBUM + albumId;
     }
 
     @GetMapping(Mappings.SHOW_ALBUM_ALBUM_ID)
