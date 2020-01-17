@@ -1,29 +1,29 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/head :: headFragment}">
+<html lang="en">
+<head id="head">
 
 </head>
 
 <body>
 <div class="wrapper">
 
-    <div th:replace="~{fragments/header :: headerFragment}"></div>
+    <div id="header"></div>
 
-    <div th:replace="~{fragments/flags :: flagsFragment}"></div>
+    <div id="flags"></div>
 
-    <div th:replace="~{fragments/shortNav :: shortNavFragment}"></div>
+    <div id="shortNav"></div>
 
     <div class="container">
 
-        <h1 th:text="#{too.large.file}"></h1>
+        <h1 id="notification"></h1>
 
     </div>
 
 </div>
 
-<div th:replace="~{fragments/footer :: footerFragment}"></div>
+<div id="footer"></div>
 
-<div th:replace="~{fragments/script :: scriptFragment}">
+<div id="script">
 
 </div>
 
