@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 
-<div class="nav" th:fragment="shortNavFragment">
+<div class="nav" id="fragment">
 
     <ol>
-        <li><a th:href="@{'/'}" th:text="#{home.page}"></a></li>
-        <li><a th:href="@{'/add_album/'}" th:text="#{add.album}"></a></li>
-        <li><a th:href="@{'/remove_album/'}" th:text="#{remove.album}"></a></li>
-        <li><a th:href="@{https://github.com/bartek-dec}" th:text="#{about.author}"></a></li>
+        <li><a id="home"></a></li>
+        <li><a id="add"></a></li>
+        <li><a id="remove"></a></li>
+        <li><a id="author"></a></li>
     </ol>
 
 </div>
