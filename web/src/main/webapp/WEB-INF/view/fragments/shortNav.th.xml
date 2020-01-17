@@ -1,0 +1,7 @@
+<thlogic>
+    <attr sel="#fragment" th:fragment="shortNavFragment"/>
+    <attr sel="#home" th:href="@{__${T(org.example.util.Mappings).HOME}__}" th:text="#{home.page}"/>
+    <attr sel="#add" th:href="@{__${T(org.example.util.Mappings).ADD_ALBUM}__}" th:text="#{add.album}"/>
+    <attr sel="#remove" th:href="@{__${T(org.example.util.Mappings).REMOVE_ALBUM}__}" th:text="#{remove.album}"/>
+    <attr sel="#author" th:href="@{https://github.com/bartek-dec}" th:text="#{about.author}"/>
+</thlogic>
