@@ -1,0 +1,4 @@
+<thlogic>
+    <attr sel="#fragment" th:fragment="scriptFragment"/>
+    <attr sel="#src-jquery" th:src="@{/staticResources/jquery/jquery-3.1.1.min.js}"/>
+</thlogic>
