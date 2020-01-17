@@ -1,0 +1,8 @@
+<thlogic>
+    <attr sel="#fragment" th:fragment="longNavFragment (albumId)"/>
+    <attr sel="#home" th:href="@{__${T(org.example.util.Mappings).HOME}__}" th:text="#{home.page}"/>
+    <attr sel="#add" th:href="@{__${T(org.example.util.Mappings).ADD_ALBUM}__}" th:text="#{add.album}"/>
+    <attr sel="#edit" th:href="@{__${T(org.example.util.Mappings).EDIT_ALBUM}____${albumId}__}" th:text="#{edit.album}"/>
+    <attr sel="#remove" th:href="@{__${T(org.example.util.Mappings).REMOVE_ALBUM}__}" th:text="#{remove.album}"/>
+    <attr sel="#author" th:href="@{https://github.com/bartek-dec}" th:text="#{about.author}"/>
+</thlogic>
