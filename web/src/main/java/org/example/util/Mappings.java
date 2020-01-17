@@ -11,6 +11,10 @@ public final class Mappings {
     public static final String UPDATE_DATA = "updateData";
     public static final String UPDATE_PHOTO = "updatePhoto";
     public static final String SHOW_IMG = "show_img/";
+    
+    //*** Mappings used flags.th.xml ***
+    public static final String LANG_PL = "/?lang=pl";
+    public static final String LANG_EN = "/?lang=en";
 
     public static final String ADD_PHOTO = "add_photo/";
     public static final String PHOTO_ID = "{photoId}";
