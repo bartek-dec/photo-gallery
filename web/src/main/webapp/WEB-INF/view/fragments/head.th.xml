@@ -1,0 +1,6 @@
+<thlogic>
+    <attr sel="#fragment" th:fragment="headFragment"/>
+    <attr sel="#title" th:text="#{app.title}"/>
+    <attr sel="#css" th:href="@{/staticResources/css/main.css}"/>
+    <attr sel="#fontello" th:href="@{/staticResources/css/fontello.css}"/>
+</thlogic>
