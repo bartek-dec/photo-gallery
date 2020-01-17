@@ -16,7 +16,7 @@ public final class Mappings {
     public static final String LANG_PL = "/?lang=pl";
     public static final String LANG_EN = "/?lang=en";
 
-    public static final String ADD_PHOTO = "add_photo/";
+    public static final String ADD_PHOTO = "/add_photo/";
     public static final String PHOTO_ID = "{photoId}";
 
     public static final String ADD_ALBUM = "/add_album/";
