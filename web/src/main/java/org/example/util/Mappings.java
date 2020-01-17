@@ -19,10 +19,10 @@ public final class Mappings {
     public static final String ADD_PHOTO = "add_photo/";
     public static final String PHOTO_ID = "{photoId}";
 
-    public static final String ADD_ALBUM = "add_album/";
-    public static final String REMOVE_ALBUM = "remove_album/";
-    public static final String EDIT_ALBUM = "edit_album/";
-    public static final String SHOW_ALBUM = "show_album/";
+    public static final String ADD_ALBUM = "/add_album/";
+    public static final String REMOVE_ALBUM = "/remove_album/";
+    public static final String EDIT_ALBUM = "/edit_album/";
+    public static final String SHOW_ALBUM = "/show_album/";
     public static final String ALBUM_ID = "{albumId}";
 
     public static final String ADD_PHOTO_ALBUM_ID = ADD_PHOTO + ALBUM_ID;
