@@ -1,33 +1,31 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/head :: headFragment}">
+<html lang="en">
+<head id="head">
 
 </head>
 
 <body>
 <div class="wrapper">
 
-    <div th:replace="~{fragments/header :: headerFragment}"></div>
+    <div id="header"></div>
 
-    <div th:replace="~{fragments/flags :: flagsFragment}"></div>
+    <div id="flags"></div>
 
-    <div th:replace="~{fragments/shortNav :: shortNavFragment}"></div>
+    <div id="shortNav"></div>
 
     <div class="container">
 
-        <div th:if="${albums.isEmpty()}">
-            <h2 th:text="#{no.albums}"></h2>
+        <div id="if">
+            <h2 id="no-albums"></h2>
         </div>
 
-        <div class="postcard" th:each="album : ${albums}">
+        <div class="postcard" id="each">
 
             <div class="photo">
-                <img class="img" th:src="@{'/show/' + ${album.id}}">
+                <img class="img" id="src">
             </div>
             <p>
-                <a href="#" th:text="#{delete} + ' ' + ${album.getName()}"
-                   th:href="@{'/remove_album/' + ${album.getId()} + '/delete'}">
-                </a>
+                <a href="#" id="href"></a>
             </p>
 
         </div>
@@ -36,9 +34,9 @@
 
 </div>
 
-<div th:replace="~{fragments/footer :: footerFragment}"></div>
+<div id="footer"></div>
 
-<div th:replace="~{fragments/script :: scriptFragment}"></div>
+<div id="script"></div>
 
 </body>
 </html>
