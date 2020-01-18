@@ -1,0 +1,23 @@
+<thlogic>
+    <attr sel="#head" th:replace="~{fragments/head :: headFragment}"/>
+    <attr sel="#header" th:replace="~{fragments/header :: headerFragment}"/>
+    <attr sel="#flags" th:replace="~{fragments/flags :: flagsFragment}"/>
+    <attr sel="#longNav" th:replace="~{fragments/longNav :: longNavFragment(${album.getId()})}"/>
+    <attr sel="#data-action" th:action="@{__${T(org.example.util.Mappings).EDIT_ALBUM}____${album.getId()}____${T(org.example.util.Mappings).UPDATE_DATA}__}" th:object="${album}"/>
+    <attr sel="#data-id" th:field="*{id}"/>
+    <attr sel="#data-name" th:text="#{albums.name}"/>
+    <attr sel="#data-field-name" th:field="*{name}"/>
+    <attr sel="#date" th:text="#{trips.date}"/>
+    <attr sel="#date-field" th:field="*{tripDate}"/>
+    <attr sel="#submit-date" th:value="#{submit.form}"/>
+    <attr sel="#add-photo" th:text="#{add.photo}"/>
+    <attr sel="#photo-action" th:action="@{__${T(org.example.util.Mappings).EDIT_ALBUM}____${album.getId()}____${T(org.example.util.Mappings).UPDATE_PHOTO}__}"/>
+    <attr sel="#submit-photo" th:value="#{submit.form}"/>
+    <attr sel="#if" th:if="${photos.isEmpty()}"/>
+    <attr sel="#no-photo" th:text="#{no.photo.notification}"/>
+    <attr sel="#unless" th:unless="${photos.isEmpty()}" th:each="photo : ${photos}"/>
+    <attr sel="#src" th:src="@{__${T(org.example.util.Mappings).SLASH}____${T(org.example.util.Mappings).DISPLAY_PHOTOS}____${T(org.example.util.Mappings).SLASH}____${albumId}____${T(org.example.util.Mappings).SLASH}____${photo.getId()}____${T(org.example.util.Mappings).SLASH}____${T(org.example.util.Mappings).DISPLAY}__}"/>
+    <attr sel="#href" th:href="@{__${T(org.example.util.Mappings).EDIT_ALBUM}____${album.getId()}____${T(org.example.util.Mappings).SLASH}____${photo.getId()}____${T(org.example.util.Mappings).SLASH}____${T(org.example.util.Mappings).DELETE}__}" th:text="#{delete.photo}"/>
+    <attr sel="#footer" th:replace="~{fragments/footer :: footerFragment}"/>
+    <attr sel="#script" th:replace="~{fragments/script :: scriptFragment}"/>
+</thlogic>
