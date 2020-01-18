@@ -1,60 +1,56 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/head :: headFragment}">
+<html lang="en">
+<head id="head">
 
 </head>
 
 <body>
 <div class="wrapper">
 
-    <div th:replace="~{fragments/header :: headerFragment}"></div>
+    <div id="header"></div>
 
-    <div th:replace="~{fragments/flags :: flagsFragment}"></div>
+    <div id="flags"></div>
 
-    <div th:replace="~{fragments/shortNav :: shortNavFragment}"></div>
+    <div id="shortNav"></div>
 
     <div class="container_form">
 
-        <p th:text="#{add.photo}"></p>
+        <p id="notification"></p>
 
-        <form method="POST" th:action="@{'/add_photo/' + ${albumId}}" enctype="multipart/form-data">
+        <form method="POST" id="action" enctype="multipart/form-data">
             <input type="file" name="imagefile" id="imagefile" class="file">
-            <input type="submit" th:value="#{submit.form}">
+            <input type="submit" id="submit"/>
         </form>
 
     </div>
 
     <div class="container">
 
-        <div th:if="${photos.isEmpty()}">
-            <h2 th:text="#{no.photo.notification}"></h2>
+        <div id="if">
+            <h2 id="text"></h2>
         </div>
 
         <div>
 
-            <div class="postcard_small" th:unless="${photos.isEmpty()}" th:each="photo : ${photos}">
+            <div class="postcard_small" id="unless">
                 <div class="photo_small">
                     <div>
-                        <img class="img_small"
-                             th:src="@{'/displayPhotos/' + ${albumId} + '/' + ${photo.getId()} + '/display'}">
+                        <img class="img_small" id="src">
                     </div>
                 </div>
-                <p><a class="link" href="#"
-                      th:href="@{'/add_photo/' + ${albumId} + '/show/' + ${photo.id} + '/delete'}"
-                      th:text="#{delete.photo}"></a>
+                <p><a class="link" href="#" id="href"></a>
                 </p>
             </div>
 
         </div>
 
-
     </div>
 
 </div>
 
-<div th:replace="~{fragments/footer :: footerFragment}"></div>
+<div id="footer"></div>
 
-<div th:replace="~{fragments/script :: scriptFragment}"></div>
+<div id="script"></div>
 
 </body>
 </html>
