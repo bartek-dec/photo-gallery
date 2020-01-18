@@ -1,0 +1,13 @@
+<thlogic>
+    <attr sel="#head" th:replace="~{fragments/head :: headFragment}"/>
+    <attr sel="#header" th:replace="~{fragments/header :: headerFragment}"/>
+    <attr sel="#flags" th:replace="~{fragments/flags :: flagsFragment}"/>
+    <attr sel="#shortNav" th:replace="~{fragments/shortNav :: shortNavFragment}"/>
+    <attr sel="#if" th:if="${albums.isEmpty()}"/>
+    <attr sel="#no-albums" th:text="#{no.albums}"/>
+    <attr sel="#each" th:each="album : ${albums}"/>
+    <attr sel="#src" th:src="@{__${T(org.example.util.Mappings).SHOW}____${album.id}__}"/>
+    <attr sel="#href" th:text="#{delete} + ${album.getName()}" th:href="@{__${T(org.example.util.Mappings).REMOVE_ALBUM}____${album.getId()}____${T(org.example.util.Mappings).SLASH}____${T(org.example.util.Mappings).DELETE}__}"/>
+    <attr sel="#footer" th:replace="~{fragments/footer :: footerFragment}"/>
+    <attr sel="#script" th:replace="~{fragments/script :: scriptFragment}"/>
+</thlogic>
