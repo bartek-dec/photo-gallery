@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/head :: headFragment}">
+<head id="head">
 
 </head>
 
@@ -13,8 +13,7 @@
 
             <div>
                 <div>
-                    <img class="large_img"
-                         th:src="@{'/displayPhotos/' + ${albumId} + '/' + ${photo.getId()} + '/display'}">
+                    <img class="large_img" id="src">
                 </div>
             </div>
         </div>
@@ -23,7 +22,7 @@
 
 </div>
 
-<div th:replace="~{fragments/footer :: footerFragment}"></div>
+<div id="footer"></div>
 
 </body>
 </html>
