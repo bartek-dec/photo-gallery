@@ -1,0 +1,12 @@
+<thlogic>
+    <attr sel="#head" th:replace="~{fragments/head :: headFragment}"/>
+    <attr sel="#header" th:replace="~{fragments/header :: headerFragment}"/>
+    <attr sel="#flags" th:replace="~{fragments/flags :: flagsFragment}"/>
+    <attr sel="#longNav" th:replace="~{fragments/longNav :: longNavFragment(${album.getId()})}"/>
+    <attr sel="#name" th:text="${album.getName()}"/>
+    <attr sel="#each" th:each="photo : ${photos}"/>
+    <attr sel="#href" th:href="@{__${T(org.example.util.Mappings).SHOW_IMG}____${album.getId()}____${T(org.example.util.Mappings).SLASH}____${photo.getId()}__}"/>
+    <attr sel="#src" th:src="@{__${T(org.example.util.Mappings).SLASH}____${T(org.example.util.Mappings).DISPLAY_PHOTOS}____${T(org.example.util.Mappings).SLASH}____${albumId}____${T(org.example.util.Mappings).SLASH}____${photo.getId()}____${T(org.example.util.Mappings).SLASH}____${T(org.example.util.Mappings).DISPLAY}__}"/>
+    <attr sel="#footer" th:replace="~{fragments/footer :: footerFragment}"/>
+    <attr sel="#script" th:replace="~{fragments/script :: scriptFragment}"/>
+</thlogic>
