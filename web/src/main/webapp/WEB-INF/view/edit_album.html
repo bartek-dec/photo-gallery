@@ -1,44 +1,43 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/head :: headFragment}">
+<html lang="en">
+<head id="head">
 
 </head>
 
 <body>
 <div class="wrapper">
 
-    <div th:replace="~{fragments/header :: headerFragment}"></div>
+    <div id="header"></div>
 
-    <div th:replace="~{fragments/flags :: flagsFragment}"></div>
+    <div id="flags"></div>
 
-    <div th:replace="~{fragments/longNav :: longNavFragment(${album.getId()})}"></div>
+    <div id="longNav"></div>
 
     <div class="form_wrapper">
 
         <div class="container_form_edit">
 
-            <form th:action="@{'/edit_album/' + ${album.getId()} + '/updateData'}" th:object="${album}" method="POST">
-                <input type="hidden" th:field="*{id}"/>
+            <form id="data-action" method="POST">
+                <input type="hidden" id="data-id"/>
 
-                <label th:text="#{albums.name}"></label>
-                <input type="text" th:field="*{name}">
+                <label id="data-name"></label>
+                <input type="text" id="data-field-name"/>
 
-                <label th:text="#{trips.date}"></label>
-                <input type="date" th:field="*{tripDate}">
+                <label id="date"></label>
+                <input type="date" id="date-field"/>
 
-                <input type="submit" th:value="#{submit.form}">
+                <input type="submit" id="submit-date"/>
             </form>
 
         </div>
 
         <div class="container_form_edit">
 
-            <p th:text="#{add.photo}"></p>
+            <p id="add-photo"></p>
 
-            <form method="POST" th:action="@{'/edit_album/' + ${album.getId()} + '/updatePhoto'}"
-                  enctype="multipart/form-data">
-                <input type="file" name="imagefile" id="imagefile" class="file">
-                <input type="submit" th:value="#{submit.form}">
+            <form method="POST" id="photo-action" enctype="multipart/form-data">
+                <input type="file" name="imagefile" id="imagefile" class="file"/>
+                <input type="submit" id="submit-photo"/>
             </form>
 
         </div>
@@ -47,21 +46,18 @@
 
     <div class="container">
 
-        <div th:if="${photos.isEmpty()}">
-            <h2 th:text="#{no.photo.notification}"></h2>
+        <div id="if">
+            <h2 id="no-photo"></h2>
         </div>
 
-        <div class="postcard_small" th:unless="${photos.isEmpty()}" th:each="photo : ${photos}">
+        <div class="postcard_small" id="unless">
             <div class="photo_small">
                 <div>
-                    <img class="img_small"
-                         th:src="@{'/displayPhotos/' + ${album.getId()} + '/' + ${photo.getId()} + '/display'}">
+                    <img class="img_small" id="src">
                 </div>
             </div>
             <p>
-                <a class="link" href="#"
-                   th:href="@{'/edit_album/' + ${album.getId()} + '/' + ${photo.getId()} + '/delete'}"
-                   th:text="#{delete.photo}"></a>
+                <a class="link" href="#" id="href"></a>
             </p>
         </div>
 
@@ -69,9 +65,9 @@
 
 </div>
 
-<div th:replace="~{fragments/footer :: footerFragment}"></div>
+<div id="footer"></div>
 
-<div th:replace="~{fragments/script :: scriptFragment}"></div>
+<div id="script"></div>
 
 </body>
 </html>
