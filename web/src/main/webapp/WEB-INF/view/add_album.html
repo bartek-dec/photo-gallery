@@ -1,39 +1,39 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/head :: headFragment}">
+<html lang="en">
+<head id="head">
 
 </head>
 
 <body>
 <div class="wrapper">
 
-    <div th:replace="~{fragments/header :: headerFragment}"></div>
+    <div id="header"></div>
 
-    <div th:replace="~{fragments/flags :: flagsFragment}"></div>
+    <div id="flags"></div>
 
-    <div th:replace="~{fragments/shortNav :: shortNavFragment}"></div>
+    <div id="shortNav"></div>
 
     <div class="container_form">
 
-        <p th:text="#{create.album}"></p>
+        <p id="notification"></p>
 
-        <form action="#" th:action="@{'/add_album/'}"  th:object="${album}" method="POST" >
-            <input type="hidden" th:field="*{id}"/>
+        <form action="#" id="action" method="POST" >
+            <input type="hidden" id="id"/>
 
-            <label th:text="#{albums.name}"></label>
-            <input type="text" th:field="*{name}"/>
+            <label id="name"></label>
+            <input type="text" id="field-name"/>
 
-            <label th:text="#{trips.date}"></label>
-            <input type="date" th:field="*{tripDate}"/>
+            <label id="date"></label>
+            <input type="date" id="field-date"/>
 
-            <input type="submit" th:value="#{submit.form}">
+            <input type="submit" id="submit"/>
         </form>
 
     </div>
 
 </div>
 
-<div th:replace="~{fragments/footer :: footerFragment}"></div>
+<div id="footer"></div>
 
 </body>
 </html>
