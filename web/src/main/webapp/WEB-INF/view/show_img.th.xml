@@ -1,0 +1,5 @@
+<thlogic>
+    <attr sel="#head" th:replace="~{fragments/head :: headFragment}"/>
+    <attr sel="#src" th:src="@{__${T(org.example.util.Mappings).SLASH}____${T(org.example.util.Mappings).DISPLAY_PHOTOS}____${T(org.example.util.Mappings).SLASH}____${albumId}____${T(org.example.util.Mappings).SLASH}____${photo.getId()}____${T(org.example.util.Mappings).SLASH}____${T(org.example.util.Mappings).DISPLAY}__}"/>
+    <attr sel="#footer" th:replace="~{fragments/footer :: footerFragment}"/>
+</thlogic>
