@@ -16,6 +16,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -44,11 +46,17 @@ public class AlbumController {
     }
 
     @GetMapping(Mappings.SHOW_ALBUMS)
-    public void showFirstPhoto(@PathVariable Long albumId, HttpServletResponse response) {
+    public void showFirstPhoto(@PathVariable Long albumId, HttpServletResponse response,
+                               HttpServletRequest request) {
         log.debug("I am in the AlbumController showFirstPhoto()");
 
-        Photo photo = photoService.findAllPhotos(albumId).get(0);
-        renderPhoto(response, photo);
+        try {
+            Photo photo = photoService.findAllPhotos(albumId).get(0);
+            renderDataBasePhoto(response, photo);
+        } catch (IndexOutOfBoundsException e) {
+            log.debug("CAUGHT INDEX_OUT_OF_BOUND EXCEPTION ");
+            renderDefaultPhoto(response, request);
+        }
     }
 
     @GetMapping(Mappings.DISPLAY_PHOTOS_ALBUM_ID_PHOTO_ID_DISPLAY)
@@ -56,11 +64,22 @@ public class AlbumController {
         log.debug("I am in the AlbumController displayPhotos()");
 
         Photo photo = photoService.findPhotoById(photoId);
-        renderPhoto(response, photo);
+        renderDataBasePhoto(response, photo);
     }
 
-    private void renderPhoto(HttpServletResponse response, Photo photo) {
+    private void renderDefaultPhoto(HttpServletResponse response, HttpServletRequest request) {
+        try {
+            response.setContentType(AttributeNames.CONTENT_TYPE);
+            ServletContext context = request.getSession().getServletContext();
+            InputStream inputStream = context.getResourceAsStream("/staticResources/png/default-image.jpg");
+            IOUtils.copy(inputStream, response.getOutputStream());
+            response.flushBuffer();
+        } catch (IOException e) {
+            throw new NotFoundException(e.getMessage());
+        }
+    }
 
+    private void renderDataBasePhoto(HttpServletResponse response, Photo photo) {
         try {
             response.setContentType(AttributeNames.CONTENT_TYPE);
             InputStream inputStream = new ByteArrayInputStream(photo.getImage());
