@@ -35,6 +35,9 @@
         <spring-data-jpa-version>2.2.3.RELEASE</spring-data-jpa-version>
         <file-upload-version>1.4</file-upload-version>
         <commons-io-version>2.6</commons-io-version>
+        <junit-version>5.6.0</junit-version>
+        <mockito-version>3.2.4</mockito-version>
+        <hamcrest-version>2.0.0.0</hamcrest-version>
     </properties>
 
     <dependencyManagement>
@@ -149,6 +152,28 @@
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
                 <version>${commons-io-version}</version>
+            </dependency>
+
+            <!-- Unit testing -->
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-engine</artifactId>
+                <version>${junit-version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-junit-jupiter</artifactId>
+                <version>${mockito-version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.hamcrest</groupId>
+                <artifactId>java-hamcrest</artifactId>
+                <version>${hamcrest-version}</version>
+                <scope>test</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
