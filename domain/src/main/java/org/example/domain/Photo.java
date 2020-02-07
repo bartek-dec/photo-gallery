@@ -1,14 +1,21 @@
 package org.example.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Arrays;
 
 @Entity
 @Table(name = "photo")
 @Data
-public class Photo implements Serializable {
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Photo implements Serializable, Comparable {
 
     private static final long serialVersionUID = 9089647886114593402L;
 
@@ -24,6 +31,24 @@ public class Photo implements Serializable {
     @JoinColumn(name = "album_id")
     private Album album;
 
-    public Photo() {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Photo photo = (Photo) o;
+
+        return Arrays.equals(image, photo.image);
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(image);
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Photo photo = (Photo) o;
+        return id.compareTo(photo.getId());
     }
 }

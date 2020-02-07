@@ -1,18 +1,23 @@
 package org.example.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "album")
 @Data
-public class Album implements Serializable {
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Album implements Serializable, Comparable {
 
     private static final long serialVersionUID = 2003091824768618971L;
 
@@ -29,8 +34,29 @@ public class Album implements Serializable {
     private LocalDate tripDate;
 
     @OneToMany(mappedBy = "album", cascade = CascadeType.ALL)
-    private List<Photo> photos = new ArrayList<>();
+    private List<Photo> photos;
 
-    public Album() {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Album album = (Album) o;
+
+        if (!name.equals(album.name)) return false;
+        return tripDate.equals(album.tripDate);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name.hashCode();
+        result = 31 * result + tripDate.hashCode();
+        return result;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Album album = (Album) o;
+        return id.compareTo(album.getId());
     }
 }
