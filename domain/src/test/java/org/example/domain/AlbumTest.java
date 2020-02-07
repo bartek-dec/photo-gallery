@@ -7,7 +7,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class AlbumTest {
 
@@ -20,14 +21,10 @@ class AlbumTest {
 
     @BeforeEach
     void setUp() {
-        album = new Album();
-        blankAlbum = new Album();
-        photos.add(new Photo());
+        photos.add(Photo.builder().build());
+        album = Album.builder().id(id).name(name).tripDate(date).photos(photos).build();
 
-        album.setId(id);
-        album.setName(name);
-        album.setTripDate(date);
-        album.setPhotos(photos);
+        blankAlbum = Album.builder().build();
     }
 
     @Test
@@ -69,13 +66,13 @@ class AlbumTest {
     @Test
     void getPhotos() {
         List<Photo> albumsPhotos = new ArrayList<>();
-        albumsPhotos.add(new Photo());
+        albumsPhotos.add(Photo.builder().build());
 
         assertEquals(albumsPhotos, album.getPhotos());
     }
 
     @Test
     void zeroWhenNoPhotos() {
-        assertEquals(0, blankAlbum.getPhotos().size());
+        assertNull(blankAlbum.getPhotos());
     }
 }

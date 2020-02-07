@@ -3,6 +3,8 @@ package org.example.domain;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class PhotoTest {
@@ -11,16 +13,13 @@ class PhotoTest {
     private Photo blankPhoto;
     private final Long id = 1L;
     private final byte[] image = new byte[1];
-    private final Album album = new Album();
+    private final LocalDate date = LocalDate.of(2020, 1, 28);
+    private final Album album = Album.builder().name("Madera").tripDate(date).build();
 
     @BeforeEach
     void setUp() {
-        photo = new Photo();
-        blankPhoto = new Photo();
-
-        photo.setId(id);
-        photo.setImage(image);
-        photo.setAlbum(album);
+        photo = Photo.builder().id(id).image(image).album(album).build();
+        blankPhoto = Photo.builder().build();
     }
 
     @Test
@@ -49,7 +48,8 @@ class PhotoTest {
 
     @Test
     void getAlbum() {
-        Album photosAlbum = new Album();
+        LocalDate tripDate = LocalDate.of(2020, 1, 28);
+        Album photosAlbum = Album.builder().name("Madera").tripDate(tripDate).build();
 
         assertEquals(photosAlbum, photo.getAlbum());
     }
