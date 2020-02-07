@@ -2,13 +2,13 @@ package org.example.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.example.domain.Album;
-import org.example.exception.NotFoundException;
 import org.example.repository.AlbumRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,6 +30,7 @@ public class AlbumServiceImpl implements AlbumService {
 
         List<Album> albums = new ArrayList<>();
         albumRepository.findAll().iterator().forEachRemaining(albums::add);
+        Collections.sort(albums);
 
         return albums;
     }
@@ -50,7 +51,7 @@ public class AlbumServiceImpl implements AlbumService {
         Optional<Album> albumOptional = albumRepository.findById(albumId);
 
         if (!albumOptional.isPresent()) {
-            throw new NotFoundException();
+            return null;
         }
 
         return albumOptional.get();

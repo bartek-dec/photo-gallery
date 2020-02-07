@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.domain.Album;
 import org.example.domain.Photo;
 import org.example.exception.NotFoundException;
-import org.example.repository.AlbumRepository;
 import org.example.repository.PhotoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,39 +22,40 @@ import java.util.Optional;
 public class PhotoServiceImpl implements PhotoService {
 
     private final PhotoRepository photoRepository;
-    private final AlbumRepository albumRepository;
+    private final AlbumService albumService;
 
     @Autowired
-    public PhotoServiceImpl(PhotoRepository photoRepository, AlbumRepository albumRepository) {
+    public PhotoServiceImpl(PhotoRepository photoRepository, AlbumService albumService) {
         this.photoRepository = photoRepository;
-        this.albumRepository = albumRepository;
+        this.albumService = albumService;
     }
 
     @Override
     public List<Photo> findAllPhotos(Long albumId) {
         log.debug("I am in the PhotoServiceImpl findAllPhotos()");
 
-        Optional<Album> albumOptional = albumRepository.findById(albumId);
+        Album album = albumService.findAlbumById(albumId);
 
-        if (!albumOptional.isPresent()) {
+        if (album == null) {
             throw new NotFoundException();
         }
 
-        return new ArrayList<>(albumOptional.get().getPhotos());
+        List<Photo> photos = new ArrayList<>(album.getPhotos());
+        Collections.sort(photos);
+        return photos;
     }
 
     @Override
     public Photo savePhoto(Long albumId, MultipartFile file) {
         log.debug("I am in the PhotoServiceImpl savePhoto()");
 
-        Optional<Album> albumOptional = albumRepository.findById(albumId);
+        Album album = albumService.findAlbumById(albumId);
 
-        if (!albumOptional.isPresent()) {
+        if (album == null) {
             log.debug("Album with ID = " + albumId + " has not been found");
             throw new NotFoundException();
         }
 
-        Album album = albumOptional.get();
         Photo photo = new Photo();
 
         if (!file.isEmpty()) {
