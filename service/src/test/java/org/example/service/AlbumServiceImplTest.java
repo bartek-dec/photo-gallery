@@ -9,6 +9,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -48,16 +49,19 @@ class AlbumServiceImplTest {
 
     @Test
     void whenNoAlbumsThenEmptyList() {
+        when(albumRepository.findAll()).thenReturn(new ArrayList<>());
+
         List<Album> albums = albumService.findAllAlbums();
 
         assertEquals(0, albums.size());
     }
 
     @Test
-    void saveAlbum() {
-        Album album = Album.builder().build();
-        album.setId(1L);
+    void saveAlbumNoOtherAlbumsInDatabase() {
+        Album album = Album.builder().id(1L).build();
+        List<Album> albums = new ArrayList<>();
 
+        when(albumRepository.findAll()).thenReturn(albums);
         when(albumRepository.save(album)).thenReturn(album);
 
         Album savedAlbum = albumService.saveAlbum(album);
@@ -68,7 +72,48 @@ class AlbumServiceImplTest {
     }
 
     @Test
+    void saveAlbumOtherAlbumAlreadyExistInDatabase() {
+        Album album = Album.builder().id(1L).name("Madera")
+                .tripDate(LocalDate.of(2020, 1, 12)).build();
+
+        Album albumToSave=Album.builder().name("England")
+                .tripDate(LocalDate.of(2020,1,1)).build();
+
+        List<Album> albums = new ArrayList<>();
+        albums.add(album);
+
+        when(albumRepository.findAll()).thenReturn(albums);
+        when(albumRepository.save(albumToSave)).thenReturn(albumToSave);
+
+        Album savedAlbum = albumService.saveAlbum(albumToSave);
+
+        assertEquals(albumToSave, savedAlbum);
+        verify(albumRepository, times(1)).save(albumToSave);
+    }
+
+    @Test
+    void saveAlbumTheSameAlbumAlreadyExistInDatabase() {
+        Album album = Album.builder().id(1L).name("Madera")
+                .tripDate(LocalDate.of(2020, 1, 12)).build();
+
+        Album albumToSave=Album.builder().name("Madera")
+                .tripDate(LocalDate.of(2020,1,12)).build();
+
+        List<Album> albums = new ArrayList<>();
+        albums.add(album);
+
+        when(albumRepository.findAll()).thenReturn(albums);
+
+        Album savedAlbum = albumService.saveAlbum(albumToSave);
+
+        assertNull(savedAlbum);
+    }
+
+    @Test
     void whenSaveNullThenExpectNull() {
+        List<Album> albums = new ArrayList<>();
+
+        when(albumRepository.findAll()).thenReturn(albums);
         when(albumRepository.save(null)).thenReturn(null);
 
         Album album = albumService.saveAlbum(null);

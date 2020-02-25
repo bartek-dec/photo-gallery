@@ -39,7 +39,23 @@ public class AlbumServiceImpl implements AlbumService {
     public Album saveAlbum(Album album) {
         log.debug("I am in the AlbumServiceImpl saveAlbum()");
 
-        Album savedAlbum = albumRepository.save(album);
+        Album savedAlbum;
+        List<Album> albums = findAllAlbums();
+
+        if (albums.size() == 0) {
+            savedAlbum = albumRepository.save(album);
+        } else {
+            Optional<Album> albumOptional = albums
+                    .stream()
+                    .filter(a -> a.equals(album))
+                    .findFirst();
+
+            if (!albumOptional.isPresent()) {
+                savedAlbum = albumRepository.save(album);
+            } else {
+                return null;
+            }
+        }
 
         return savedAlbum;
     }
