@@ -1,6 +1,7 @@
 package org.example.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.example.exception.BadContentException;
 import org.example.exception.NotFoundException;
 import org.example.util.ViewNames;
 import org.springframework.http.HttpStatus;
@@ -56,6 +57,19 @@ public class ControllerExceptionHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(NotFoundException.class)
     public ModelAndView handleNotFound(Exception exception) {
+        log.error("Handling Not Found Exception");
+        log.error(exception.getMessage());
+
+        ModelAndView modelAndView = new ModelAndView();
+
+        modelAndView.setViewName(ViewNames.ERROR);
+
+        return modelAndView;
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(BadContentException.class)
+    public ModelAndView handleBadContent(Exception exception) {
         log.error("Handling Not Found Exception");
         log.error(exception.getMessage());
 
