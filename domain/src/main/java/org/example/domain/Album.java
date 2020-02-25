@@ -43,14 +43,14 @@ public class Album implements Serializable, Comparable {
 
         Album album = (Album) o;
 
-        if (!name.equals(album.name)) return false;
-        return tripDate.equals(album.tripDate);
+        if (name != null ? !name.equals(album.name) : album.name != null) return false;
+        return tripDate != null ? tripDate.equals(album.tripDate) : album.tripDate == null;
     }
 
     @Override
     public int hashCode() {
-        int result = name.hashCode();
-        result = 31 * result + tripDate.hashCode();
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (tripDate != null ? tripDate.hashCode() : 0);
         return result;
     }
 
