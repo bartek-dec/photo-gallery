@@ -1,6 +1,7 @@
 package org.example.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.example.exception.BadContentException;
 import org.example.service.PhotoService;
 import org.example.util.AttributeNames;
 import org.example.util.Mappings;
@@ -41,6 +42,8 @@ public class PhotoController {
 
         if (file.getContentType().equals(AttributeNames.CONTENT_TYPE)) {
             photoService.savePhoto(albumId, file);
+        } else {
+            throw new BadContentException();
         }
 
         return "redirect:" + Mappings.ADD_PHOTO + albumId;

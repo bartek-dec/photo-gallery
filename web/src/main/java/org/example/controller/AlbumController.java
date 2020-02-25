@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.example.domain.Album;
 import org.example.domain.Photo;
+import org.example.exception.BadContentException;
 import org.example.exception.NotFoundException;
 import org.example.service.AlbumService;
 import org.example.service.PhotoService;
@@ -151,6 +152,8 @@ public class AlbumController {
 
         if (file.getContentType().equals(AttributeNames.CONTENT_TYPE)) {
             photoService.savePhoto(albumId, file);
+        } else {
+            throw new BadContentException();
         }
 
         return "redirect:" + Mappings.EDIT_ALBUM + albumId;
