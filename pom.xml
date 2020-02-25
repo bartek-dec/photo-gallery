@@ -39,6 +39,7 @@
         <junit-version>5.6.0</junit-version>
         <mockito-version>3.2.4</mockito-version>
         <hamcrest-version>2.2</hamcrest-version>
+        <hibernate-validation-version>6.1.2.Final</hibernate-validation-version>
     </properties>
 
     <dependencyManagement>
@@ -182,6 +183,13 @@
                 <artifactId>hamcrest</artifactId>
                 <version>${hamcrest-version}</version>
                 <scope>test</scope>
+            </dependency>
+
+            <!-- Validation -->
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-validator</artifactId>
+                <version>${hibernate-validation-version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
