@@ -7,6 +7,10 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
@@ -26,9 +30,13 @@ public class Album implements Serializable, Comparable {
     @Column(name = "album_id")
     private Long id;
 
+    @Size(min = 3, max = 65, message = "{Size.album.name}")
+    @Pattern(regexp = "^(?=.*\\S).+$",message = "{Pattern.album.name}")
     @Column(name = "name")
     private String name;
 
+    @Past
+    @NotNull
     @Column(name = "trip_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate tripDate;
