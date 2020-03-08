@@ -1,6 +1,7 @@
 package org.example.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.example.exception.AlreadyExistException;
 import org.example.exception.BadContentException;
 import org.example.exception.NotFoundException;
 import org.example.util.ViewNames;
@@ -70,12 +71,25 @@ public class ControllerExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(BadContentException.class)
     public ModelAndView handleBadContent(Exception exception) {
-        log.error("Handling Not Found Exception");
+        log.error("Handling Bad Content Exception");
         log.error(exception.getMessage());
 
         ModelAndView modelAndView = new ModelAndView();
 
         modelAndView.setViewName(ViewNames.ERROR);
+
+        return modelAndView;
+    }
+
+    @ResponseStatus(HttpStatus.ALREADY_REPORTED)
+    @ExceptionHandler(AlreadyExistException.class)
+    public ModelAndView handleAlreadyExists(Exception exception) {
+        log.error("Handling Already Exists Exception");
+        log.error(exception.getMessage());
+
+        ModelAndView modelAndView = new ModelAndView();
+
+        modelAndView.setViewName(ViewNames.ALBUM_EXIST);
 
         return modelAndView;
     }
