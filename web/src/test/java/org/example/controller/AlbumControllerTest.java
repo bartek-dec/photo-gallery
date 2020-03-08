@@ -118,17 +118,92 @@ class AlbumControllerTest {
 
     @Test
     void createAlbum() throws Exception {
-        Album unSavedAlbum = Album.builder().name("Madera").tripDate(LocalDate.of(2020, 1, 10)).build();
+        String name = "Madera";
+        Album unSavedAlbum = Album.builder().name(name).tripDate(LocalDate.of(2020, 1, 10)).build();
+        Album savedAlbum = Album.builder().id(2L).name(name).tripDate(LocalDate.of(2020, 1, 10)).build();
 
-        when(albumService.saveAlbum(unSavedAlbum)).thenReturn(album);
+        when(albumService.saveAlbum(unSavedAlbum)).thenReturn(savedAlbum);
 
         mockMvc.perform(post(Mappings.ADD_ALBUM)
-                .param("name", "Madera")
-                .param("tripDate", LocalDate.of(2020, 1, 10).toString()))
+                .param("name", unSavedAlbum.getName())
+                .param("tripDate", unSavedAlbum.getTripDate().toString()))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl(Mappings.ADD_PHOTO + album.getId()));
+                .andExpect(redirectedUrl(Mappings.ADD_PHOTO + savedAlbum.getId()));
 
         verify(albumService, atLeastOnce()).saveAlbum(any());
+    }
+
+    @Test
+    void createAlbumNameTooShort() throws Exception {
+        String name = "Ma";
+        Album badAlbum = Album.builder().name(name).tripDate(LocalDate.of(2020, 1, 10)).build();
+
+        mockMvc.perform(post(Mappings.ADD_ALBUM)
+                .param("name", badAlbum.getName())
+                .param("tripDate", badAlbum.getTripDate().toString()))
+                .andExpect(status().isOk())
+                .andExpect(view().name(ViewNames.ADD_ALBUM));
+
+        verify(albumService, never()).saveAlbum(any());
+    }
+
+    @Test
+    void createAlbumNameTooLong() throws Exception {
+        String name = "Maaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadera";
+        Album badAlbum = Album.builder().name(name).tripDate(LocalDate.of(2020, 1, 10)).build();
+
+        mockMvc.perform(post(Mappings.ADD_ALBUM)
+                .param("name", badAlbum.getName())
+                .param("tripDate", badAlbum.getTripDate().toString()))
+                .andExpect(status().isOk())
+                .andExpect(view().name(ViewNames.ADD_ALBUM));
+
+        verify(albumService, never()).saveAlbum(any());
+    }
+
+    @Test
+    void createAlbumNameThreeSpaces() throws Exception {
+        String name = "   ";
+        Album badAlbum = Album.builder().name(name).tripDate(LocalDate.of(2020, 1, 10)).build();
+
+        mockMvc.perform(post(Mappings.ADD_ALBUM)
+                .param("name", badAlbum.getName())
+                .param("tripDate", badAlbum.getTripDate().toString()))
+                .andExpect(status().isOk())
+                .andExpect(view().name(ViewNames.ADD_ALBUM));
+
+        verify(albumService, never()).saveAlbum(any());
+    }
+
+    @Test
+    void createAlbumAtLeastOneNonWhiteSpace() throws Exception {
+        String name = "  a";
+        Album unSavedAlbum = Album.builder().name(name).tripDate(LocalDate.of(2020, 1, 10)).build();
+        Album savedAlbum = Album.builder().id(2L).name(name).tripDate(LocalDate.of(2020, 1, 10)).build();
+
+        when(albumService.saveAlbum(unSavedAlbum)).thenReturn(savedAlbum);
+
+        mockMvc.perform(post(Mappings.ADD_ALBUM)
+                .param("name", unSavedAlbum.getName())
+                .param("tripDate", unSavedAlbum.getTripDate().toString()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl(Mappings.ADD_PHOTO + savedAlbum.getId()));
+
+        verify(albumService, atLeastOnce()).saveAlbum(any());
+    }
+
+    @Test
+    void createAlbumTripDateNotPast() throws Exception {
+        String name = "Madera";
+        Album badAlbum = Album.builder().name(name).tripDate(LocalDate.now()).build();
+
+        mockMvc.perform(post(Mappings.ADD_ALBUM)
+                .param("name", badAlbum.getName())
+                .param("tripDate", badAlbum.getTripDate().toString()))
+                .andExpect(status().isOk())
+                .andExpect(view().name(ViewNames.ADD_ALBUM));
+
+        verify(albumService, never()).saveAlbum(any());
     }
 
     @Test

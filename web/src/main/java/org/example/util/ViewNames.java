@@ -12,6 +12,7 @@ public final class ViewNames {
     public static final String SHOW_IMG = "show_img";
 
     public static final String ERROR = "error";
+    public static final String ALBUM_EXIST = "error_album_exist";
     public static final String TOO_LARGE = "too_large";
 
     private ViewNames() {

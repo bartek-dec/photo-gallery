@@ -14,12 +14,14 @@ import org.example.util.ViewNames;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -101,9 +103,14 @@ public class AlbumController {
     }
 
     @PostMapping(Mappings.ADD_ALBUM)
-    public String createAlbum(@ModelAttribute(AttributeNames.ALBUM) Album album) {
+    public String createAlbum(@Valid @ModelAttribute(AttributeNames.ALBUM) Album album,
+                              BindingResult result) {
         log.debug("I am in the AlbumController createAlbum()");
 
+        if (result.hasErrors()) {
+            log.debug("Form has errors");
+            return ViewNames.ADD_ALBUM;
+        }
         Album savedAlbum = albumService.saveAlbum(album);
 
         return "redirect:" + Mappings.ADD_PHOTO + savedAlbum.getId();
@@ -138,9 +145,16 @@ public class AlbumController {
     }
 
     @PostMapping(Mappings.EDIT_ALBUM_ALBUM_ID_UPDATE_DATA)
-    public String submitUpdatedData(@PathVariable Long albumId, @ModelAttribute(AttributeNames.ALBUM) Album album) {
+    public String submitUpdatedData(@PathVariable Long albumId, @Valid @ModelAttribute(AttributeNames.ALBUM) Album album,
+                                    BindingResult result, Model model) {
         log.debug("I am in the AlbumController submitUpdatedData()");
 
+        if (result.hasErrors()) {
+            log.debug("Form has errors");
+            model.addAttribute(AttributeNames.PHOTOS, photoService.findAllPhotos(albumId));
+
+            return ViewNames.EDIT_ALBUM;
+        }
         albumService.saveAlbum(album);
 
         return "redirect:" + Mappings.EDIT_ALBUM + albumId;
