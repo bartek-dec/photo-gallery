@@ -40,6 +40,7 @@
         <mockito-version>3.2.4</mockito-version>
         <hamcrest-version>2.2</hamcrest-version>
         <hibernate-validation-version>6.1.2.Final</hibernate-validation-version>
+        <tomcat-jasper-el-version>9.0.29</tomcat-jasper-el-version>
     </properties>
 
     <dependencyManagement>
@@ -191,6 +192,13 @@
                 <artifactId>hibernate-validator</artifactId>
                 <version>${hibernate-validation-version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>org.apache.tomcat</groupId>
+                <artifactId>tomcat-jasper-el</artifactId>
+                <version>${tomcat-jasper-el-version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
