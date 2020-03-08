@@ -5,11 +5,13 @@
     <attr sel="#shortNav" th:replace="~{fragments/shortNav :: shortNavFragment}"/>
     <attr sel="#notification" th:text="#{create.album}"/>
     <attr sel="#action" th:action="@{__${T(org.example.util.Mappings).ADD_ALBUM}__}"  th:object="${album}"/>
+    <attr sel="#validation" th:if="${#fields.hasErrors('*')}"/>
+    <attr sel="#list" th:each="err : ${#fields.errors('*')}" th:text="${err}"/>
     <attr sel="#id" th:field="*{id}"/>
-    <attr sel="#name" th:text="#{albums.name}"/>
-    <attr sel="#field-name" th:field="*{name}"/>
-    <attr sel="#date" th:text="#{trips.date}"/>
-    <attr sel="#field-date" th:field="*{tripDate}"/>
+    <attr sel="#name" th:text="#{albums.name}" th:class="${#fields.hasErrors('name')} ? 'error'"/>
+    <attr sel="#field-name" th:field="*{name}" th:class="${#fields.hasErrors('name')} ? 'error'"/>
+    <attr sel="#date" th:text="#{trips.date}" th:class="${#fields.hasErrors('tripDate')} ? 'error'"/>
+    <attr sel="#field-date" th:field="*{tripDate}" th:class="${#fields.hasErrors('tripDate')}? 'error'"/>
     <attr sel="#submit" th:value="#{submit.form}"/>
     <attr sel="#footer" th:replace="~{fragments/footer :: footerFragment}"/>
 </thlogic>

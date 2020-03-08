@@ -4,11 +4,16 @@
     <attr sel="#flags" th:replace="~{fragments/flags :: flagsFragment}"/>
     <attr sel="#longNav" th:replace="~{fragments/longNav :: longNavFragment(${album.getId()})}"/>
     <attr sel="#data-action" th:action="@{__${T(org.example.util.Mappings).EDIT_ALBUM}____${album.getId()}____${T(org.example.util.Mappings).UPDATE_DATA}__}" th:object="${album}"/>
+    <attr sel="#validation" th:if="${#fields.hasErrors('*')}"/>
+    <attr sel="#list" th:each="err : ${#fields.errors('*')}" th:text="${err}"/>
     <attr sel="#data-id" th:field="*{id}"/>
-    <attr sel="#data-name" th:text="#{albums.name}"/>
-    <attr sel="#data-field-name" th:field="*{name}"/>
-    <attr sel="#date" th:text="#{trips.date}"/>
-    <attr sel="#date-field" th:field="*{tripDate}"/>
+
+    <attr sel="#data-name" th:text="#{albums.name}" th:class="${#fields.hasErrors('name')} ? 'error'"/>
+    <attr sel="#data-field-name" th:field="*{name}" th:class="${#fields.hasErrors('name')} ? 'error'"/>
+
+    <attr sel="#date" th:text="#{trips.date}" th:class="${#fields.hasErrors('tripDate')} ? 'error'"/>
+    <attr sel="#date-field" th:field="*{tripDate}" th:class="${#fields.hasErrors('tripDate')}? 'error'"/>
+
     <attr sel="#submit-date" th:value="#{submit.form}"/>
     <attr sel="#add-photo" th:text="#{add.photo}"/>
     <attr sel="#photo-action" th:action="@{__${T(org.example.util.Mappings).EDIT_ALBUM}____${album.getId()}____${T(org.example.util.Mappings).UPDATE_PHOTO}__}"/>
