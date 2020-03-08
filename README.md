@@ -1,5 +1,5 @@
-# photo-gallery
-What is this repository for?
+# Photo-gallery
+### What is this repository for?
 
 This application helps to organize photos in online albums.
 It offers the following functionalities:
@@ -15,7 +15,7 @@ It offers the following functionalities:
 
 -   application allows language selection: english (default), polish
 
-### Technology used:###
+### Technology used:
 
 Java 11
 
@@ -35,7 +35,7 @@ Mockito 3.2.4
 
 Junit 5.6.0
 
-###Before you run application do the following:###
+###Before you run application do the following:
 
 create schema in mysql named: gallery
 
