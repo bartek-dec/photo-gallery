@@ -2,6 +2,7 @@ package org.example.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.example.domain.Album;
+import org.example.exception.AlreadyExistException;
 import org.example.repository.AlbumRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,7 +54,7 @@ public class AlbumServiceImpl implements AlbumService {
             if (!albumOptional.isPresent()) {
                 savedAlbum = albumRepository.save(album);
             } else {
-                return null;
+                throw new AlreadyExistException("Album already exists");
             }
         }
 

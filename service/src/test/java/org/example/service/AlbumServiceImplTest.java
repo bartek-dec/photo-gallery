@@ -1,7 +1,9 @@
 package org.example.service;
 
 import org.example.domain.Album;
+import org.example.exception.AlreadyExistException;
 import org.example.repository.AlbumRepository;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -76,8 +78,8 @@ class AlbumServiceImplTest {
         Album album = Album.builder().id(1L).name("Madera")
                 .tripDate(LocalDate.of(2020, 1, 12)).build();
 
-        Album albumToSave=Album.builder().name("England")
-                .tripDate(LocalDate.of(2020,1,1)).build();
+        Album albumToSave = Album.builder().name("England")
+                .tripDate(LocalDate.of(2020, 1, 1)).build();
 
         List<Album> albums = new ArrayList<>();
         albums.add(album);
@@ -96,17 +98,15 @@ class AlbumServiceImplTest {
         Album album = Album.builder().id(1L).name("Madera")
                 .tripDate(LocalDate.of(2020, 1, 12)).build();
 
-        Album albumToSave=Album.builder().name("Madera")
-                .tripDate(LocalDate.of(2020,1,12)).build();
+        Album albumToSave = Album.builder().name("Madera")
+                .tripDate(LocalDate.of(2020, 1, 12)).build();
 
         List<Album> albums = new ArrayList<>();
         albums.add(album);
 
         when(albumRepository.findAll()).thenReturn(albums);
 
-        Album savedAlbum = albumService.saveAlbum(albumToSave);
-
-        assertNull(savedAlbum);
+        Assertions.assertThrows(AlreadyExistException.class, () -> albumService.saveAlbum(albumToSave));
     }
 
     @Test
