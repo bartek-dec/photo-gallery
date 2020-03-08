@@ -35,7 +35,7 @@ Mockito 3.2.4
 
 Junit 5.6.0
 
-###Before you run application do the following:
+### Before you run application do the following:
 
 create schema in mysql named: gallery
 
